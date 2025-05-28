@@ -1,102 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aeronautica: Calculate flight</title>
-  <link rel="icon" type="image/png" href="Aeronautica.gif"/>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #1e1e1e;
-      color: white;
-    }
-    header {
-      background-color: #2a2a2a;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header .logo-section {
-      display: flex;
-      align-items: center;
-    }
-    header img {
-      height: 40px;
-      margin-right: 15px;
-    }
-    header h1 {
-      font-size: 20px;
-      color: #ffffff;
-    }
-    #langSelect {
-      background-color: #3a3a3a;
-      color: white;
-      padding: 6px;
-      border: none;
-      border-radius: 4px;
-    }
-    main {
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 20px;
-      background-color: #2a2a2a;
-      border-radius: 10px;
-    }
-    h2 {
-      text-align: center;
-      color: #ffffff;
-      margin-bottom: 30px;
-    }
-    .row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-    select, input {
-      background-color: #3a3a3a;
-      color: white;
-      border: none;
-      border-radius: 4px;
-    }
-    select {
-      width: 80px;
-      padding: 6px;
-      margin-right: 10px;
-    }
-    input[type="number"] {
-      width: 100%;
-      padding: 8px;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
-      background: #3a7bd5;
-      color: white;
-      font-weight: bold;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .output {
-      margin-top: 25px;
-      padding: 20px;
-      background-color: #1e1e1e;
-      border: 1px solid #4a90e2;
-      border-radius: 8px;
-    }
-  </style>
+  <link rel="icon" type="image/png" href="Aeronautica.gif">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header>
   <div class="logo-section">
-    <img src="Aeronautica.gif" alt="Logo" />
+    <img src="Aeronautica.gif" alt="Logo" aria-label="Aeronautica Logo">
     <h1 id="siteTitle">Aeronautica: Calculate flight</h1>
   </div>
-  <select id="langSelect" onchange="changeLang(this.value)">
+  <select id="langSelect" onchange="changeLang(this.value)" aria-label="Select language">
     <option value="ru">Русский</option>
     <option value="en">English</option>
     <option value="de">Deutsch</option>
@@ -106,219 +24,54 @@
 </header>
 
 <main>
-  <h2 id="mainHeading">Полётный расчёт с индивидуальными единицами</h2>
+  <section aria-labelledby="mainHeading">
+    <h2 id="mainHeading">Полётный расчёт с индивидуальными единицами</h2>
 
-  <div class="row">
-    <select id="unitStartAlt">
-      <option value="ft">ft</option>
-      <option value="m">m</option>
-    </select>
-    <input id="startAlt" type="number" placeholder="">
-  </div>
+    <div class="row">
+      <select id="unitStartAlt" aria-label="Start altitude unit">
+        <option value="ft">ft</option>
+        <option value="m">m</option>
+      </select>
+      <input id="startAlt" type="number" placeholder="Начальная высота" aria-label="Start altitude">
+    </div>
 
-  <div class="row">
-    <select id="unitEndAlt">
-      <option value="ft">ft</option>
-      <option value="m">m</option>
-    </select>
-    <input id="endAlt" type="number" placeholder="">
-  </div>
+    <div class="row">
+      <select id="unitEndAlt" aria-label="End altitude unit">
+        <option value="ft">ft</option>
+        <option value="m">m</option>
+      </select>
+      <input id="endAlt" type="number" placeholder="Конечная высота" aria-label="End altitude">
+    </div>
 
-  <div class="row">
-    <select id="unitSpeed">
-      <option value="knots">knots</option>
-      <option value="kmh">km/h</option>
-      <option value="ms">m/s</option>
-    </select>
-    <input id="speed" type="number" placeholder="">
-  </div>
+    <div class="row">
+      <select id="unitSpeed" aria-label="Speed unit">
+        <option value="knots">knots</option>
+        <option value="kmh">km/h</option>
+        <option value="ms">m/s</option>
+      </select>
+      <input id="speed" type="number" placeholder="Скорость" aria-label="Speed">
+    </div>
 
-  <div class="row">
-    <select id="unitDistance">
-      <option value="km">km</option>
-      <option value="nm">nm</option>
-    </select>
-    <input id="distanceToAirport" type="number" placeholder="">
-  </div>
+    <div class="row">
+      <select id="unitDistance" aria-label="Distance unit">
+        <option value="km">km</option>
+        <option value="nm">nm</option>
+      </select>
+      <input id="distanceToAirport" type="number" placeholder="Дистанция до аэродрома" aria-label="Distance to airport">
+    </div>
 
-  <div class="row">
-    <span style="width: 80px;" id="adiLabel">ADI (°)</span>
-    <input id="adiAngle" type="number" value="-5" min="-15" max="15">
-  </div>
+    <div class="row">
+      <span style="width: 80px;" id="adiLabel">ADI (°)</span>
+      <input id="adiAngle" type="number" value="-5" min="-15" max="15" aria-label="ADI angle">
+    </div>
 
-  <button onclick="calculate()" id="calculateBtn">Рассчитать</button>
+    <button onclick="calculate()" id="calculateBtn" aria-label="Calculate">Рассчитать</button>
 
-  <div class="output" id="result"></div>
+    <div class="output" id="result" aria-live="polite"></div>
+  </section>
 </main>
 
-<script>
-  const translations = {
-    ru: {
-      siteTitle: "Aeronautica: Calculate flight",
-      mainHeading: "Полётный расчёт с индивидуальными единицами",
-      adiLabel: "ADI (°)",
-      calculateBtn: "Рассчитать",
-      placeholders: {
-        startAlt: "Начальная высота",
-        endAlt: "Конечная высота",
-        speed: "Скорость",
-        distanceToAirport: "Дистанция до аэродрома",
-      },
-      result: (vSpeed, vFt, timeMin, distKm, warning) => `
-        <b>Результаты:</b><br>
-        Вертикальная скорость: ${vSpeed.toFixed(2)} м/с (${vFt.toFixed(0)} ft/min)<br>
-        Время: ${timeMin.toFixed(2)} мин<br>
-        Расстояние: ${distKm.toFixed(2)} км<br>
-        ${warning}
-      `,
-      warning: "<div style='color:orange;'>⚠ Недостаточная дистанция для такого снижения.</div>"
-    },
-    en: {
-      siteTitle: "Aeronautica: Calculate flight",
-      mainHeading: "Flight calculation with custom units",
-      adiLabel: "ADI (°)",
-      calculateBtn: "Calculate",
-      placeholders: {
-        startAlt: "Start altitude",
-        endAlt: "End altitude",
-        speed: "Speed",
-        distanceToAirport: "Distance to airport",
-      },
-      result: (vSpeed, vFt, timeMin, distKm, warning) => `
-        <b>Results:</b><br>
-        Vertical speed: ${vSpeed.toFixed(2)} m/s (${vFt.toFixed(0)} ft/min)<br>
-        Time: ${timeMin.toFixed(2)} min<br>
-        Distance: ${distKm.toFixed(2)} km<br>
-        ${warning}
-      `,
-      warning: "<div style='color:orange;'>⚠ Not enough distance for such descent.</div>"
-    },
-    de: {
-      siteTitle: "Aeronautica: Flugberechnung",
-      mainHeading: "Flugberechnung mit individuellen Einheiten",
-      adiLabel: "ADI (°)",
-      calculateBtn: "Berechnen",
-      placeholders: {
-        startAlt: "Starthöhe",
-        endAlt: "Zielhöhe",
-        speed: "Geschwindigkeit",
-        distanceToAirport: "Entfernung zum Flughafen",
-      },
-      result: (vSpeed, vFt, timeMin, distKm, warning) => `
-        <b>Ergebnisse:</b><br>
-        Vertikale Geschwindigkeit: ${vSpeed.toFixed(2)} m/s (${vFt.toFixed(0)} ft/min)<br>
-        Zeit: ${timeMin.toFixed(2)} Min<br>
-        Entfernung: ${distKm.toFixed(2)} km<br>
-        ${warning}
-      `,
-      warning: "<div style='color:orange;'>⚠ Nicht genug Entfernung für diesen Sinkflug.</div>"
-    },
-    es: {
-      siteTitle: "Aeronautica: Cálculo de vuelo",
-      mainHeading: "Cálculo de vuelo con unidades personalizadas",
-      adiLabel: "ADI (°)",
-      calculateBtn: "Calcular",
-      placeholders: {
-        startAlt: "Altitud inicial",
-        endAlt: "Altitud final",
-        speed: "Velocidad",
-        distanceToAirport: "Distancia al aeropuerto",
-      },
-      result: (vSpeed, vFt, timeMin, distKm, warning) => `
-        <b>Resultados:</b><br>
-        Velocidad vertical: ${vSpeed.toFixed(2)} m/s (${vFt.toFixed(0)} ft/min)<br>
-        Tiempo: ${timeMin.toFixed(2)} min<br>
-        Distancia: ${distKm.toFixed(2)} km<br>
-        ${warning}
-      `,
-      warning: "<div style='color:orange;'>⚠ Distancia insuficiente para este descenso.</div>"
-    },
-    ua: {
-      siteTitle: "Aeronautica: Розрахунок польоту",
-      mainHeading: "Розрахунок польоту з власними одиницями",
-      adiLabel: "ADI (°)",
-      calculateBtn: "Розрахувати",
-      placeholders: {
-        startAlt: "Початкова висота",
-        endAlt: "Кінцева висота",
-        speed: "Швидкість",
-        distanceToAirport: "Відстань до аеропорту",
-      },
-      result: (vSpeed, vFt, timeMin, distKm, warning) => `
-        <b>Результати:</b><br>
-        Вертикальна швидкість: ${vSpeed.toFixed(2)} м/с (${vFt.toFixed(0)} ft/min)<br>
-        Час: ${timeMin.toFixed(2)} хв<br>
-        Відстань: ${distKm.toFixed(2)} км<br>
-        ${warning}
-      `,
-      warning: "<div style='color:orange;'>⚠ Недостатня відстань для такого зниження.</div>"
-    }
-  };
-
-  function applyLanguage(lang) {
-    const t = translations[lang];
-    document.getElementById("siteTitle").innerText = t.siteTitle;
-    document.getElementById("mainHeading").innerText = t.mainHeading;
-    document.getElementById("adiLabel").innerText = t.adiLabel;
-    document.getElementById("calculateBtn").innerText = t.calculateBtn;
-
-    document.getElementById("startAlt").placeholder = t.placeholders.startAlt;
-    document.getElementById("endAlt").placeholder = t.placeholders.endAlt;
-    document.getElementById("speed").placeholder = t.placeholders.speed;
-    document.getElementById("distanceToAirport").placeholder = t.placeholders.distanceToAirport;
-  }
-
-  function changeLang(lang) {
-    localStorage.setItem("lang", lang);
-    applyLanguage(lang);
-  }
-
-  function convertToSI(value, unit) {
-    switch (unit) {
-      case 'ft': return value * 0.3048;
-      case 'm': return value;
-      case 'km': return value * 1000;
-      case 'nm': return value * 1852;
-      case 'knots': return value * 0.514444;
-      case 'kmh': return value * 1000 / 3600;
-      case 'ms': return value;
-      default: return value;
-    }
-  }
-
-  function calculate() {
-    const lang = localStorage.getItem("lang") || "ru";
-    const t = translations[lang];
-
-    const startAlt = convertToSI(parseFloat(document.getElementById('startAlt').value), document.getElementById('unitStartAlt').value);
-    const endAlt = convertToSI(parseFloat(document.getElementById('endAlt').value), document.getElementById('unitEndAlt').value);
-    const speed = convertToSI(parseFloat(document.getElementById('speed').value), document.getElementById('unitSpeed').value);
-    const distance = convertToSI(parseFloat(document.getElementById('distanceToAirport').value), document.getElementById('unitDistance').value);
-    const adi = parseFloat(document.getElementById('adiAngle').value);
-
-    const rad = Math.abs(adi) * Math.PI / 180;
-    const verticalSpeed = Math.tan(rad) * speed;
-    const deltaH = Math.abs(startAlt - endAlt);
-    const timeSec = deltaH / verticalSpeed;
-    const distCovered = speed * timeSec;
-
-    const warning = distCovered > distance ? t.warning : "";
-
-    document.getElementById('result').innerHTML = t.result(
-      verticalSpeed,
-      verticalSpeed / 0.00508,
-      timeSec / 60,
-      distCovered / 1000,
-      warning
-    );
-  }
-
-  window.onload = () => {
-    const savedLang = localStorage.getItem("lang") || "ru";
-    document.getElementById("langSelect").value = savedLang;
-    applyLanguage(savedLang);
-  };
-</script>
+<script src="script.js" defer></script>
 
 </body>
 </html>
