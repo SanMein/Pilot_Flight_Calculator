@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <title>Aeronautica: Calculate flight</title>
@@ -97,8 +97,8 @@
     <h1 id="siteTitle">Aeronautica: Calculate flight</h1>
   </div>
   <select id="langSelect" onchange="changeLang(this.value)">
-    <option value="ru">Русский</option>
     <option value="en">English</option>
+    <option value="ru">Русский</option>
     <option value="de">Deutsch</option>
     <option value="es">Español</option>
     <option value="ua">Український</option>
@@ -106,7 +106,7 @@
 </header>
 
 <main>
-  <h2 id="mainHeading">Полётный расчёт с индивидуальными единицами</h2>
+  <h2 id="mainHeading">Flight calculation with custom units</h2>
 
   <div class="row">
     <select id="unitStartAlt">
@@ -146,33 +146,13 @@
     <input id="adiAngle" type="number" value="-5" min="-15" max="15">
   </div>
 
-  <button onclick="calculate()" id="calculateBtn">Рассчитать</button>
+  <button onclick="calculate()" id="calculateBtn">Calculate</button>
 
   <div class="output" id="result"></div>
 </main>
 
 <script>
   const translations = {
-    ru: {
-      siteTitle: "Aeronautica: Calculate flight",
-      mainHeading: "Полётный расчёт с индивидуальными единицами",
-      adiLabel: "ADI (°)",
-      calculateBtn: "Рассчитать",
-      placeholders: {
-        startAlt: "Начальная высота",
-        endAlt: "Конечная высота",
-        speed: "Скорость",
-        distanceToAirport: "Дистанция до аэродрома",
-      },
-      result: (vSpeed, vFt, timeMin, dist, unitDistance, warning) => `
-        <b>Результаты:</b><br>
-        Вертикальная скорость: ${vSpeed.toFixed(2)} м/с (${vFt.toFixed(0)} ft/min)<br>
-        Время: ${timeMin.toFixed(2)} мин<br>
-        Расстояние: ${dist.toFixed(2)} ${unitDistance}<br>
-        ${warning}
-      `,
-      warning: "<div style='color:orange;'>⚠ Недостаточная дистанция для такого снижения.</div>"
-    },
     en: {
       siteTitle: "Aeronautica: Calculate flight",
       mainHeading: "Flight calculation with custom units",
@@ -192,6 +172,26 @@
         ${warning}
       `,
       warning: "<div style='color:orange;'>⚠ Not enough distance for such descent.</div>"
+    },
+    ru: {
+      siteTitle: "Aeronautica: Calculate flight",
+      mainHeading: "Полётный расчёт с индивидуальными единицами",
+      adiLabel: "ADI (°)",
+      calculateBtn: "Рассчитать",
+      placeholders: {
+        startAlt: "Начальная высота",
+        endAlt: "Конечная высота",
+        speed: "Скорость",
+        distanceToAirport: "Дистанция до аэродрома",
+      },
+      result: (vSpeed, vFt, timeMin, dist, unitDistance, warning) => `
+        <b>Результаты:</b><br>
+        Вертикальная скорость: ${vSpeed.toFixed(2)} м/с (${vFt.toFixed(0)} ft/min)<br>
+        Время: ${timeMin.toFixed(2)} мин<br>
+        Расстояние: ${dist.toFixed(2)} ${unitDistance}<br>
+        ${warning}
+      `,
+      warning: "<div style='color:orange;'>⚠ Недостаточная дистанция для такого снижения.</div>"
     },
     de: {
       siteTitle: "Aeronautica: Flugberechnung",
@@ -291,11 +291,11 @@
     const t = translations[lang];
 
     const startAlt = convertToSI(parseFloat(document.getElementById('startAlt').value), document.getElementById('unitStartAlt').value);
-    const endAlt = convertToSI(parseFloat(document.getElementById('endAlt').value), document.getElementById('unitEndAlt').value);
+    const endAlt = convertToSI(parseFloat(document.getElementById('startAlt').value), document.getElementById('unitEndAlt').value);
     const speed = convertToSI(parseFloat(document.getElementById('speed').value), document.getElementById('unitSpeed').value);
     const distance = convertToSI(parseFloat(document.getElementById('distanceToAirport').value), document.getElementById('unitDistance').value);
     const adi = parseFloat(document.getElementById('adiAngle').value);
-    const unitDistance = document.getElementById('unitDistance').value; // Получаем единицу измерения расстояния
+    const unitDistance = document.getElementById('unitDistance').value;
 
     const rad = Math.abs(adi) * Math.PI / 180;
     const verticalSpeed = Math.tan(rad) * speed;
@@ -305,7 +305,6 @@
 
     const warning = distCovered > distance ? t.warning : "";
 
-    // Конвертируем расстояние в зависимости от выбранной единицы
     const distOutput = unitDistance === 'km' ? distCovered / 1000 : distCovered / 1852;
 
     document.getElementById('result').innerHTML = t.result(
@@ -313,7 +312,7 @@
       verticalSpeed / 0.00508,
       timeSec / 60,
       distOutput,
-      unitDistance, // Передаем единицу измерения для отображения
+      unitDistance,
       warning
     );
   }
