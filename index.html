@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8"/>
   <title>Aeronautica: Calculate flight</title>
@@ -97,8 +97,8 @@
     <h1 id="siteTitle">Aeronautica: Calculate flight</h1>
   </div>
   <select id="langSelect" onchange="changeLang(this.value)">
-    <option value="en">English</option>
     <option value="ru">Русский</option>
+    <option value="en">English</option>
     <option value="de">Deutsch</option>
     <option value="es">Español</option>
     <option value="ua">Український</option>
@@ -106,8 +106,8 @@
 </header>
 
 <main>
-  <h2 id="mainHeading">Flight calculation with custom units</h2>
-
+  <h2 id="mainHeading">Полётный расчёт с индивидуальными единицами</h2>
+  
   <div class="row">
     <select id="unitStartAlt">
       <option value="ft">ft</option>
@@ -115,7 +115,7 @@
     </select>
     <input id="startAlt" type="number" placeholder="">
   </div>
-
+  
   <div class="row">
     <select id="unitEndAlt">
       <option value="ft">ft</option>
@@ -123,7 +123,7 @@
     </select>
     <input id="endAlt" type="number" placeholder="">
   </div>
-
+  
   <div class="row">
     <select id="unitSpeed">
       <option value="knots">knots</option>
@@ -132,7 +132,7 @@
     </select>
     <input id="speed" type="number" placeholder="">
   </div>
-
+  
   <div class="row">
     <select id="unitDistance">
       <option value="km">km</option>
@@ -140,39 +140,19 @@
     </select>
     <input id="distanceToAirport" type="number" placeholder="">
   </div>
-
+  
   <div class="row">
     <span style="width: 80px;" id="adiLabel">ADI (°)</span>
     <input id="adiAngle" type="number" value="-5" min="-15" max="15">
   </div>
-
-  <button onclick="calculate()" id="calculateBtn">Calculate</button>
-
+  
+  <button onclick="calculate()" id="calculateBtn">Рассчитать</button>
+  
   <div class="output" id="result"></div>
 </main>
 
 <script>
   const translations = {
-    en: {
-      siteTitle: "Aeronautica: Calculate flight",
-      mainHeading: "Flight calculation with custom units",
-      adiLabel: "ADI (°)",
-      calculateBtn: "Calculate",
-      placeholders: {
-        startAlt: "Start altitude",
-        endAlt: "End altitude",
-        speed: "Speed",
-        distanceToAirport: "Distance to airport",
-      },
-      result: (vSpeed, vFt, timeMin, dist, unitDistance, warning) => `
-        <b>Results:</b><br>
-        Vertical speed: ${vSpeed.toFixed(2)} m/s (${vFt.toFixed(0)} ft/min)<br>
-        Time: ${timeMin.toFixed(2)} min<br>
-        Distance: ${dist.toFixed(2)} ${unitDistance}<br>
-        ${warning}
-      `,
-      warning: "<div style='color:orange;'>⚠ Not enough distance for such descent.</div>"
-    },
     ru: {
       siteTitle: "Aeronautica: Calculate flight",
       mainHeading: "Полётный расчёт с индивидуальными единицами",
@@ -192,6 +172,26 @@
         ${warning}
       `,
       warning: "<div style='color:orange;'>⚠ Недостаточная дистанция для такого снижения.</div>"
+    },
+    en: {
+      siteTitle: "Aeronautica: Calculate flight",
+      mainHeading: "Flight calculation with custom units",
+      adiLabel: "ADI (°)",
+      calculateBtn: "Calculate",
+      placeholders: {
+        startAlt: "Start altitude",
+        endAlt: "End altitude",
+        speed: "Speed",
+        distanceToAirport: "Distance to airport",
+      },
+      result: (vSpeed, vFt, timeMin, dist, unitDistance, warning) => `
+        <b>Results:</b><br>
+        Vertical speed: ${vSpeed.toFixed(2)} m/s (${vFt.toFixed(0)} ft/min)<br>
+        Time: ${timeMin.toFixed(2)} min<br>
+        Distance: ${dist.toFixed(2)} ${unitDistance}<br>
+        ${warning}
+      `,
+      warning: "<div style='color:orange;'>⚠ Not enough distance for such descent.</div>"
     },
     de: {
       siteTitle: "Aeronautica: Flugberechnung",
@@ -254,7 +254,7 @@
       warning: "<div style='color:orange;'>⚠ Недостатня відстань для такого зниження.</div>"
     }
   };
-
+  
   function applyLanguage(lang) {
     const t = translations[lang];
     document.getElementById("siteTitle").innerText = t.siteTitle;
@@ -267,12 +267,12 @@
     document.getElementById("speed").placeholder = t.placeholders.speed;
     document.getElementById("distanceToAirport").placeholder = t.placeholders.distanceToAirport;
   }
-
+  
   function changeLang(lang) {
     localStorage.setItem("lang", lang);
     applyLanguage(lang);
   }
-
+  
   function convertToSI(value, unit) {
     switch (unit) {
       case 'ft': return value * 0.3048;
@@ -285,28 +285,28 @@
       default: return value;
     }
   }
-
+  
   function calculate() {
     const lang = localStorage.getItem("lang") || "en";
     const t = translations[lang];
-
+    
     const startAlt = convertToSI(parseFloat(document.getElementById('startAlt').value), document.getElementById('unitStartAlt').value);
-    const endAlt = convertToSI(parseFloat(document.getElementById('startAlt').value), document.getElementById('unitEndAlt').value);
+    const endAlt = convertToSI(parseFloat(document.getElementById('endAlt').value), document.getElementById('unitEndAlt').value);
     const speed = convertToSI(parseFloat(document.getElementById('speed').value), document.getElementById('unitSpeed').value);
     const distance = convertToSI(parseFloat(document.getElementById('distanceToAirport').value), document.getElementById('unitDistance').value);
     const adi = parseFloat(document.getElementById('adiAngle').value);
-    const unitDistance = document.getElementById('unitDistance').value;
-
+    const unitDistance = document.getElementById('unitDistance').value; // Получаем единицу измерения расстояния
+    
     const rad = Math.abs(adi) * Math.PI / 180;
     const verticalSpeed = Math.tan(rad) * speed;
     const deltaH = Math.abs(startAlt - endAlt);
     const timeSec = deltaH / verticalSpeed;
     const distCovered = speed * timeSec;
-
+    
     const warning = distCovered > distance ? t.warning : "";
-
+    
     const distOutput = unitDistance === 'km' ? distCovered / 1000 : distCovered / 1852;
-
+    
     document.getElementById('result').innerHTML = t.result(
       verticalSpeed,
       verticalSpeed / 0.00508,
@@ -316,7 +316,7 @@
       warning
     );
   }
-
+  
   window.onload = () => {
     const savedLang = localStorage.getItem("lang") || "en";
     document.getElementById("langSelect").value = savedLang;
