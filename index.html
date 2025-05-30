@@ -1,328 +1,503 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <title>Aeronautica: Calculate flight</title>
-  <link rel="icon" type="image/png" href="Aeronautica.gif"/>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #1e1e1e;
-      color: white;
-    }
-    header {
-      background-color: #2a2a2a;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header .logo-section {
-      display: flex;
-      align-items: center;
-    }
-    header img {
-      height: 40px;
-      margin-right: 15px;
-    }
-    header h1 {
-      font-size: 20px;
-      color: #ffffff;
-    }
-    #langSelect {
-      background-color: #3a3a3a;
-      color: white;
-      padding: 6px;
-      border: none;
-      border-radius: 4px;
-    }
-    main {
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 20px;
-      background-color: #2a2a2a;
-      border-radius: 10px;
-    }
-    h2 {
-      text-align: center;
-      color: #ffffff;
-      margin-bottom: 30px;
-    }
-    .row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-    select, input {
-      background-color: #3a3a3a;
-      color: white;
-      border: none;
-      border-radius: 4px;
-    }
-    select {
-      width: 80px;
-      padding: 6px;
-      margin-right: 10px;
-    }
-    input[type="number"] {
-      width: 100%;
-      padding: 8px;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
-      background: #3a7bd5;
-      color: white;
-      font-weight: bold;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .output {
-      margin-top: 25px;
-      padding: 20px;
-      background-color: #1e1e1e;
-      border: 1px solid #4a90e2;
-      border-radius: 8px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilot Flight Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3a8a, #1e40af, #3730a3);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .header-icon {
+            background: rgba(59, 130, 246, 0.2);
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        .header-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: #93c5fd;
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .header p {
+            color: #bfdbfe;
+            margin-top: 2px;
+            font-size: 0.9rem;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .input-section, .results-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #bfdbfe;
+            margin-bottom: 8px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-field {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+        }
+
+        .unit-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            color: white;
+            font-size: 0.9rem;
+            min-width: 70px;
+        }
+
+        .unit-select:focus {
+            outline: none;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+        }
+
+        .unit-select option {
+            background: #1e40af;
+            color: white;
+            padding: 5px;
+        }
+
+        .result-card {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .result-card.blue {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .result-card.purple {
+            background: rgba(147, 51, 234, 0.1);
+            border-color: rgba(147, 51, 234, 0.3);
+        }
+
+        .result-card.red {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 5px;
+        }
+
+        .result-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .result-subtext {
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: rgba(255, 255, 255, 0.7);
+            margin-left: 10px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .empty-state .icon {
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .empty-state .text {
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .empty-state .subtext {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .notes {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .notes h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .notes ul {
+            list-style: none;
+        }
+
+        .notes li {
+            font-size: 0.8rem;
+            color: #bfdbfe;
+            margin-bottom: 5px;
+        }
+
+        .status-indicator {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        .airport-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .airport-status.success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        .airport-status.danger {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .main-card {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="main-card">
+            <div class="header">
+                <div class="header-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Pilot Flight Calculator</h1>
+                    <p>Flight parameters calculation tool</p>
+                </div>
+            </div>
 
-<header>
-  <div class="logo-section">
-    <img src="Aeronautica.gif" alt="Logo"/>
-    <h1 id="siteTitle">Aeronautica: Calculate flight</h1>
-  </div>
-  <select id="langSelect" onchange="changeLang(this.value)">
-    <option value="ru">Русский</option>
-    <option value="en">English</option>
-    <option value="de">Deutsch</option>
-    <option value="es">Español</option>
-    <option value="ua">Український</option>
-  </select>
-</header>
+            <div class="content">
+                <div class="input-section">
+                    <h3 class="section-title">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                        Flight Parameters
+                    </h3>
 
-<main>
-  <h2 id="mainHeading">Полётный расчёт с индивидуальными единицами</h2>
-  
-  <div class="row">
-    <select id="unitStartAlt">
-      <option value="ft">ft</option>
-      <option value="m">m</option>
-    </select>
-    <input id="startAlt" type="number" placeholder="">
-  </div>
-  
-  <div class="row">
-    <select id="unitEndAlt">
-      <option value="ft">ft</option>
-      <option value="m">m</option>
-    </select>
-    <input id="endAlt" type="number" placeholder="">
-  </div>
-  
-  <div class="row">
-    <select id="unitSpeed">
-      <option value="knots">knots</option>
-      <option value="kmh">km/h</option>
-      <option value="ms">m/s</option>
-    </select>
-    <input id="speed" type="number" placeholder="">
-  </div>
-  
-  <div class="row">
-    <select id="unitDistance">
-      <option value="km">km</option>
-      <option value="nm">nm</option>
-    </select>
-    <input id="distanceToAirport" type="number" placeholder="">
-  </div>
-  
-  <div class="row">
-    <span style="width: 80px;" id="adiLabel">ADI (°)</span>
-    <input id="adiAngle" type="number" value="-5" min="-15" max="15">
-  </div>
-  
-  <button onclick="calculate()" id="calculateBtn">Рассчитать</button>
-  
-  <div class="output" id="result"></div>
-</main>
+                    <div class="input-group">
+                        <label class="input-label">Current Altitude</label>
+                        <div class="input-row">
+                            <input type="number" id="currentAlt" class="input-field" placeholder="Enter altitude">
+                            <select id="currentAltUnit" class="unit-select">
+                                <option value="ft">ft</option>
+                                <option value="m">m</option>
+                            </select>
+                        </div>
+                    </div>
 
-<script>
-  const translations = {
-    ru: {
-      siteTitle: "Aeronautica: Calculate flight",
-      mainHeading: "Полётный расчёт с индивидуальными единицами",
-      adiLabel: "ADI (°)",
-      calculateBtn: "Рассчитать",
-      placeholders: {
-        startAlt: "Начальная высота",
-        endAlt: "Конечная высота",
-        speed: "Скорость",
-        distanceToAirport: "Дистанция до аэродрома",
-      },
-      result: (vSpeed, vFt, timeMin, dist, unitDistance, warning) => `
-        <b>Результаты:</b><br>
-        Вертикальная скорость: ${vSpeed.toFixed(2)} м/с (${vFt.toFixed(0)} ft/min)<br>
-        Время: ${timeMin.toFixed(2)} мин<br>
-        Расстояние: ${dist.toFixed(2)} ${unitDistance}<br>
-        ${warning}
-      `,
-      warning: "<div style='color:orange;'>⚠ Недостаточная дистанция для такого снижения.</div>"
-    },
-    en: {
-      siteTitle: "Aeronautica: Calculate flight",
-      mainHeading: "Flight calculation with custom units",
-      adiLabel: "ADI (°)",
-      calculateBtn: "Calculate",
-      placeholders: {
-        startAlt: "Start altitude",
-        endAlt: "End altitude",
-        speed: "Speed",
-        distanceToAirport: "Distance to airport",
-      },
-      result: (vSpeed, vFt, timeMin, dist, unitDistance, warning) => `
-        <b>Results:</b><br>
-        Vertical speed: ${vSpeed.toFixed(2)} m/s (${vFt.toFixed(0)} ft/min)<br>
-        Time: ${timeMin.toFixed(2)} min<br>
-        Distance: ${dist.toFixed(2)} ${unitDistance}<br>
-        ${warning}
-      `,
-      warning: "<div style='color:orange;'>⚠ Not enough distance for such descent.</div>"
-    },
-    de: {
-      siteTitle: "Aeronautica: Flugberechnung",
-      mainHeading: "Flugberechnung mit individuellen Einheiten",
-      adiLabel: "ADI (°)",
-      calculateBtn: "Berechnen",
-      placeholders: {
-        startAlt: "Starthöhe",
-        endAlt: "Zielhöhe",
-        speed: "Geschwindigkeit",
-        distanceToAirport: "Entfernung zum Flughafen",
-      },
-      result: (vSpeed, vFt, timeMin, dist, unitDistance, warning) => `
-        <b>Ergebnisse:</b><br>
-        Vertikale Geschwindigkeit: ${vSpeed.toFixed(2)} m/s (${vFt.toFixed(0)} ft/min)<br>
-        Zeit: ${timeMin.toFixed(2)} Min<br>
-        Entfernung: ${dist.toFixed(2)} ${unitDistance}<br>
-        ${warning}
-      `,
-      warning: "<div style='color:orange;'>⚠ Nicht genug Entfernung für diesen Sinkflug.</div>"
-    },
-    es: {
-      siteTitle: "Aeronautica: Cálculo de vuelo",
-      mainHeading: "Cálculo de vuelo con unidades personalizadas",
-      adiLabel: "ADI (°)",
-      calculateBtn: "Calcular",
-      placeholders: {
-        startAlt: "Altitud inicial",
-        endAlt: "Altitud final",
-        speed: "Velocidad",
-        distanceToAirport: "Distancia al aeropuerto",
-      },
-      result: (vSpeed, vFt, timeMin, dist, unitDistance, warning) => `
-        <b>Resultados:</b><br>
-        Velocidad vertical: ${vSpeed.toFixed(2)} m/s (${vFt.toFixed(0)} ft/min)<br>
-        Tiempo: ${timeMin.toFixed(2)} min<br>
-        Distancia: ${dist.toFixed(2)} ${unitDistance}<br>
-        ${warning}
-      `,
-      warning: "<div style='color:orange;'>⚠ Distancia insuficiente para este descenso.</div>"
-    },
-    ua: {
-      siteTitle: "Aeronautica: Розрахунок польоту",
-      mainHeading: "Розрахунок польоту з власними одиницями",
-      adiLabel: "ADI (°)",
-      calculateBtn: "Розрахувати",
-      placeholders: {
-        startAlt: "Початкова висота",
-        endAlt: "Кінцева висота",
-        speed: "Швидкість",
-        distanceToAirport: "Відстань до аеропорту",
-      },
-      result: (vSpeed, vFt, timeMin, dist, unitDistance, warning) => `
-        <b>Результати:</b><br>
-        Вертикальна швидкість: ${vSpeed.toFixed(2)} м/с (${vFt.toFixed(0)} ft/min)<br>
-        Час: ${timeMin.toFixed(2)} хв<br>
-        Відстань: ${dist.toFixed(2)} ${unitDistance}<br>
-        ${warning}
-      `,
-      warning: "<div style='color:orange;'>⚠ Недостатня відстань для такого зниження.</div>"
-    }
-  };
-  
-  function applyLanguage(lang) {
-    const t = translations[lang];
-    document.getElementById("siteTitle").innerText = t.siteTitle;
-    document.getElementById("mainHeading").innerText = t.mainHeading;
-    document.getElementById("adiLabel").innerText = t.adiLabel;
-    document.getElementById("calculateBtn").innerText = t.calculateBtn;
+                    <div class="input-group">
+                        <label class="input-label">Target Altitude</label>
+                        <div class="input-row">
+                            <input type="number" id="targetAlt" class="input-field" placeholder="Enter altitude">
+                            <select id="targetAltUnit" class="unit-select">
+                                <option value="ft">ft</option>
+                                <option value="m">m</option>
+                            </select>
+                        </div>
+                    </div>
 
-    document.getElementById("startAlt").placeholder = t.placeholders.startAlt;
-    document.getElementById("endAlt").placeholder = t.placeholders.endAlt;
-    document.getElementById("speed").placeholder = t.placeholders.speed;
-    document.getElementById("distanceToAirport").placeholder = t.placeholders.distanceToAirport;
-  }
-  
-  function changeLang(lang) {
-    localStorage.setItem("lang", lang);
-    applyLanguage(lang);
-  }
-  
-  function convertToSI(value, unit) {
-    switch (unit) {
-      case 'ft': return value * 0.3048;
-      case 'm': return value;
-      case 'km': return value * 1000;
-      case 'nm': return value * 1852;
-      case 'knots': return value * 0.514444;
-      case 'kmh': return value * 1000 / 3600;
-      case 'ms': return value;
-      default: return value;
-    }
-  }
-  
-  function calculate() {
-    const lang = localStorage.getItem("lang") || "en";
-    const t = translations[lang];
-    
-    const startAlt = convertToSI(parseFloat(document.getElementById('startAlt').value), document.getElementById('unitStartAlt').value);
-    const endAlt = convertToSI(parseFloat(document.getElementById('endAlt').value), document.getElementById('unitEndAlt').value);
-    const speed = convertToSI(parseFloat(document.getElementById('speed').value), document.getElementById('unitSpeed').value);
-    const distance = convertToSI(parseFloat(document.getElementById('distanceToAirport').value), document.getElementById('unitDistance').value);
-    const adi = parseFloat(document.getElementById('adiAngle').value);
-    const unitDistance = document.getElementById('unitDistance').value; // Получаем единицу измерения расстояния
-    
-    const rad = Math.abs(adi) * Math.PI / 180;
-    const verticalSpeed = Math.tan(rad) * speed;
-    const deltaH = Math.abs(startAlt - endAlt);
-    const timeSec = deltaH / verticalSpeed;
-    const distCovered = speed * timeSec;
-    
-    const warning = distCovered > distance ? t.warning : "";
-    
-    const distOutput = unitDistance === 'km' ? distCovered / 1000 : distCovered / 1852;
-    
-    document.getElementById('result').innerHTML = t.result(
-      verticalSpeed,
-      verticalSpeed / 0.00508,
-      timeSec / 60,
-      distOutput,
-      unitDistance,
-      warning
-    );
-  }
-  
-  window.onload = () => {
-    const savedLang = localStorage.getItem("lang") || "en";
-    document.getElementById("langSelect").value = savedLang;
-    applyLanguage(savedLang);
-  };
-</script>
+                    <div class="input-group">
+                        <label class="input-label">Speed</label>
+                        <div class="input-row">
+                            <input type="number" id="speed" class="input-field" placeholder="Enter speed">
+                            <select id="speedUnit" class="unit-select">
+                                <option value="kts">kts</option>
+                                <option value="mph">mph</option>
+                                <option value="kmh">km/h</option>
+                                <option value="mps">m/s</option>
+                            </select>
+                        </div>
+                    </div>
 
+                    <div class="input-group">
+                        <label class="input-label">ADI Angle (-15° to +15°)</label>
+                        <input type="number" id="adiAngle" class="input-field" placeholder="Enter angle" min="-15" max="15" step="0.1">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Distance to Airport</label>
+                        <div class="input-row">
+                            <input type="number" id="airportDistance" class="input-field" placeholder="Enter distance">
+                            <select id="airportDistanceUnit" class="unit-select">
+                                <option value="km">km</option>
+                                <option value="mi">mi</option>
+                                <option value="nmi">nmi</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-section">
+                    <h3 class="section-title">Calculation Results</h3>
+
+                    <div id="results">
+                        <div class="empty-state">
+                            <div class="icon">📊</div>
+                            <div class="text">Fill in all fields</div>
+                            <div class="subtext">Calculation is performed automatically</div>
+                        </div>
+                    </div>
+
+                    <div class="notes">
+                        <h4>Notes:</h4>
+                        <ul>
+                            <li>• Positive ADI angle = climb</li>
+                            <li>• Negative ADI angle = descent</li>
+                            <li>• Calculations are approximate, consider weather conditions</li>
+                            <li>• Airport distance check assumes constant descent angle</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Conversion functions
+        function convertToMeters(value, unit) {
+            if (unit === 'ft') return value * 0.3048;
+            return value;
+        }
+
+        function convertToMps(value, unit) {
+            switch (unit) {
+                case 'kts': return value * 0.514444;
+                case 'mph': return value * 0.44704;
+                case 'kmh': return value * 0.277778;
+                case 'mps': return value;
+                default: return value;
+            }
+        }
+
+        function convertDistanceToKm(value, unit) {
+            switch (unit) {
+                case 'km': return value;
+                case 'mi': return value * 1.609344;
+                case 'nmi': return value * 1.852;
+                default: return value;
+            }
+        }
+
+        function calculate() {
+            const currentAlt = parseFloat(document.getElementById('currentAlt').value);
+            const targetAlt = parseFloat(document.getElementById('targetAlt').value);
+            const currentAltUnit = document.getElementById('currentAltUnit').value;
+            const targetAltUnit = document.getElementById('targetAltUnit').value;
+            const speed = parseFloat(document.getElementById('speed').value);
+            const speedUnit = document.getElementById('speedUnit').value;
+            const adiAngle = parseFloat(document.getElementById('adiAngle').value);
+            const airportDistance = parseFloat(document.getElementById('airportDistance').value);
+            const airportDistanceUnit = document.getElementById('airportDistanceUnit').value;
+
+            if (isNaN(currentAlt) || isNaN(targetAlt) || isNaN(speed) || isNaN(adiAngle)) {
+                document.getElementById('results').innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📊</div>
+                        <div class="text">Fill in all fields</div>
+                        <div class="subtext">Calculation is performed automatically</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Convert to standard units
+            const currentAltM = convertToMeters(currentAlt, currentAltUnit);
+            const targetAltM = convertToMeters(targetAlt, targetAltUnit);
+            const speedMps = convertToMps(speed, speedUnit);
+            const angle = adiAngle;
+
+            // Calculate altitude difference
+            const altDiff = targetAltM - currentAltM;
+
+            // Calculate vertical speed
+            const verticalSpeedMps = speedMps * Math.sin(angle * Math.PI / 180);
+            const verticalSpeedFpm = verticalSpeedMps * 196.85; // convert to ft/min
+
+            // Calculate time to reach altitude
+            const timeMinutes = Math.abs(altDiff / verticalSpeedMps / 60);
+
+            // Calculate horizontal distance
+            const horizontalSpeedMps = speedMps * Math.cos(angle * Math.PI / 180);
+            const distanceKm = (horizontalSpeedMps * timeMinutes * 60) / 1000;
+
+            let airportStatusHtml = '';
+            if (!isNaN(airportDistance)) {
+                const airportDistanceKm = convertDistanceToKm(airportDistance, airportDistanceUnit);
+                const canReachAirport = distanceKm <= airportDistanceKm;
+
+                airportStatusHtml = `
+                    <div class="airport-status ${canReachAirport ? 'success' : 'danger'}">
+                        <span class="status-indicator">${canReachAirport ? '✅' : '❌'}</span>
+                        ${canReachAirport ? 'Can reach airport in time' : 'Cannot reach airport - insufficient distance'}
+                    </div>
+                `;
+            }
+
+            document.getElementById('results').innerHTML = `
+                ${airportStatusHtml}
+                <div class="result-card">
+                    <div class="result-label">Vertical Speed</div>
+                    <div class="result-value">
+                        ${verticalSpeedMps.toFixed(2)} m/s
+                        <span class="result-subtext">(${verticalSpeedFpm.toFixed(0)} ft/min)</span>
+                    </div>
+                </div>
+
+                <div class="result-card blue">
+                    <div class="result-label">Time to Reach Altitude</div>
+                    <div class="result-value">${timeMinutes.toFixed(1)} minutes</div>
+                </div>
+
+                <div class="result-card purple">
+                    <div class="result-label">Horizontal Distance</div>
+                    <div class="result-value">${distanceKm.toFixed(1)} km</div>
+                </div>
+            `;
+        }
+
+        // Add event listeners to all inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = ['currentAlt', 'targetAlt', 'currentAltUnit', 'targetAltUnit', 'speed', 'speedUnit', 'adiAngle', 'airportDistance', 'airportDistanceUnit'];
+
+            inputs.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', calculate);
+                    element.addEventListener('change', calculate);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
