@@ -203,7 +203,7 @@
             margin-bottom: 4px;
         }
 
-        /* Tooltip Styles -  REMOVED */
+        /* Tooltip Styles - REMOVED */
 
         /* Result Card Styles */
         .result-card {
@@ -593,8 +593,9 @@
             // --- AIRPORT REACHABILITY STATUS ---
             let airportStatusHtml = '';
             if (isValidAirportDistance) {
-                const airportDistanceKm = convertDistanceToKm(parseFloat(airportDistance), airportDistanceUnit);
-                const canReachAirport = distanceKm <= airportDistanceKm;
+                const airportDistanceConverted = convertDistanceToKm(parseFloat(airportDistance), airportDistanceUnit);
+
+                const canReachAirport = distanceKm <= airportDistanceConverted; // Compare with converted value
 
                 airportStatusHtml = `
                     <div class="airport-status ${canReachAirport ? 'success' : 'danger'}">
@@ -605,6 +606,13 @@
             }
 
             // --- POPULATE RESULTS ---
+            let horizontalDistanceText = `${distanceKm.toFixed(1)} km`; // Default to km
+            if (airportDistanceUnit === 'mi') {
+                horizontalDistanceText = `${(distanceKm * 0.621371).toFixed(1)} mi`;
+            } else if (airportDistanceUnit === 'nmi') {
+                 horizontalDistanceText = `${(distanceKm * 0.539957).toFixed(1)} nmi`;
+            }
+
             document.getElementById('results').innerHTML = `
                 ${airportStatusHtml}
                 <div class="result-card">
@@ -622,7 +630,7 @@
 
                 <div class="result-card purple">
                     <div class="result-label">Horizontal Distance</div>
-                    <div class="result-value">${distanceKm.toFixed(1)} km</div>
+                    <div class="result-value">${horizontalDistanceText}</div>
                 </div>
             `;
         }
