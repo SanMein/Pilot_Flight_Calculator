@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilot Flight Calculator</title>
     <style>
+        /* General Styles */
         * {
             margin: 0;
             padding: 0;
@@ -14,8 +15,9 @@
         body {
             min-height: 100vh;
             background: linear-gradient(135deg, #1e3a8a, #1e40af, #3730a3);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Courier New', monospace;
             padding: 20px;
+            color: white;
         }
 
         .container {
@@ -32,6 +34,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        /* Header Styles */
         .header {
             display: flex;
             align-items: center;
@@ -54,7 +57,6 @@
         .header h1 {
             font-size: 1.6rem;
             font-weight: bold;
-            color: white;
         }
 
         .header p {
@@ -63,6 +65,7 @@
             font-size: 0.9rem;
         }
 
+        /* Content & Sections Styles */
         .content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -79,7 +82,6 @@
         .section-title {
             font-size: 1.1rem;
             font-weight: 600;
-            color: white;
             margin-bottom: 16px;
             display: flex;
             align-items: center;
@@ -92,6 +94,7 @@
             fill: currentColor;
         }
 
+        /* Input Styles */
         .input-group {
             margin-bottom: 16px;
         }
@@ -107,6 +110,7 @@
         .input-row {
             display: flex;
             gap: 10px;
+            align-items: center; /* Vertically center items in the input-row */
         }
 
         .input-field {
@@ -151,6 +155,57 @@
             padding: 5px;
         }
 
+        /* ADI Slider Styles */
+        .adi-slider-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .adi-slider {
+            width: 100%;
+            -webkit-appearance: none; /* Override default appearance */
+            appearance: none;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+
+        .adi-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #60a5fa;
+            border-radius: 50%;
+            cursor: grab; /* Indicate grab cursor */
+        }
+
+        .adi-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #60a5fa;
+            border-radius: 50%;
+            cursor: grab; /* Indicate grab cursor */
+        }
+
+        .adi-slider:active::-webkit-slider-thumb {
+            cursor: grabbing;
+        }
+
+        .adi-slider:active::-moz-range-thumb {
+            cursor: grabbing;
+        }
+
+        .adi-slider-value {
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        /* Tooltip Styles -  REMOVED */
+
+        /* Result Card Styles */
         .result-card {
             background: rgba(34, 197, 94, 0.1);
             border: 1px solid rgba(34, 197, 94, 0.3);
@@ -183,7 +238,6 @@
         .result-value {
             font-size: 1.3rem;
             font-weight: bold;
-            color: white;
         }
 
         .result-subtext {
@@ -193,6 +247,7 @@
             margin-left: 10px;
         }
 
+        /* Empty State & Notes Styles */
         .empty-state {
             text-align: center;
             padding: 40px 0;
@@ -201,6 +256,7 @@
         .empty-state .icon {
             color: rgba(255, 255, 255, 0.3);
             margin-bottom: 10px;
+            font-size: 3rem; /* Make the icon bigger */
         }
 
         .empty-state .text {
@@ -224,7 +280,6 @@
         .notes h4 {
             font-size: 0.9rem;
             font-weight: 600;
-            color: white;
             margin-bottom: 10px;
         }
 
@@ -238,11 +293,7 @@
             margin-bottom: 5px;
         }
 
-        .status-indicator {
-            font-size: 1.5rem;
-            margin-right: 10px;
-        }
-
+        /* Airport Status Styles */
         .airport-status {
             display: flex;
             align-items: center;
@@ -251,6 +302,7 @@
             border-radius: 10px;
             margin-bottom: 15px;
             font-weight: bold;
+            font-size: 1rem;
         }
 
         .airport-status.success {
@@ -265,6 +317,37 @@
             color: #ef4444;
         }
 
+        .status-indicator {
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        /* Profile Select Styles */
+        .profile-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            width: 100%;
+        }
+
+        .profile-select:focus {
+            outline: none;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+        }
+
+        .profile-select option {
+            background: #1e40af;
+            color: white;
+            padding: 5px;
+        }
+
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .content {
                 grid-template-columns: 1fr;
@@ -278,10 +361,19 @@
             .header h1 {
                 font-size: 1.5rem;
             }
+
+            /* Adjustments for smaller screens */
+            .input-row {
+                flex-direction: column;  /* Stack input and select on small screens */
+                align-items: flex-start; /* Align items to the start */
+            }
+            .input-field, .unit-select {
+                width: 100%; /* Full width on small screens */
+            }
         }
     </style>
 </head>
-<body>
+<body lang="en">
     <div class="container">
         <div class="main-card">
             <div class="header">
@@ -304,6 +396,18 @@
                         </svg>
                         Flight Parameters
                     </h3>
+
+                    <!-- Profile Selection -->
+                    <div class="input-group">
+                        <label class="input-label">Profile</label>
+                        <select id="profileSelect" class="profile-select">
+                            <option value="custom">Custom</option>
+                            <option value="approach">Standard Approach</option>
+                            <option value="short-field">Short Field Landing</option>
+                            <option value="climb-out">Climb Out</option>
+                        </select>
+                    </div>
+
 
                     <div class="input-group">
                         <label class="input-label">Current Altitude</label>
@@ -342,10 +446,13 @@
 
                     <div class="input-group">
                         <label class="input-label">ADI Angle (-15° to +15°)</label>
-                        <input type="number" id="adiAngle" class="input-field" placeholder="Enter angle" min="-15" max="15" step="0.1">
+                        <div class="adi-slider-container">
+                            <div class="adi-slider-value" id="adiAngleValue">0.0 °</div>
+                            <input type="range" id="adiAngle" class="adi-slider" min="-15" max="15" step="0.1" value="0">
+                        </div>
                     </div>
 
-                    <div class="input-group">
+                     <div class="input-group">
                         <label class="input-label">Distance to Airport</label>
                         <div class="input-row">
                             <input type="number" id="airportDistance" class="input-field" placeholder="Enter distance">
@@ -384,7 +491,32 @@
     </div>
 
     <script>
-        // Conversion functions
+        // --- PROFILE DATA ---
+        const profiles = {
+            approach: {
+                currentAlt: null,
+                targetAlt: 0,
+                speed: null,
+                adiAngle: -3, // Typical descent angle
+                airportDistance: null
+            },
+            "short-field": {
+                currentAlt: null,
+                targetAlt: 0,
+                speed: null,
+                adiAngle: -4, // steeper descent
+                airportDistance: null
+            },
+            "climb-out": {
+                currentAlt: 0,
+                targetAlt: null,
+                speed: null,
+                adiAngle: 10, // aggressive climb
+                airportDistance: null
+            },
+        };
+
+        // --- UTILITY FUNCTIONS ---
         function convertToMeters(value, unit) {
             if (unit === 'ft') return value * 0.3048;
             return value;
@@ -401,7 +533,7 @@
         }
 
         function convertDistanceToKm(value, unit) {
-            switch (unit) {
+             switch (unit) {
                 case 'km': return value;
                 case 'mi': return value * 1.609344;
                 case 'nmi': return value * 1.852;
@@ -409,18 +541,31 @@
             }
         }
 
+        function isValidNumber(value) {
+            return !isNaN(parseFloat(value)) && isFinite(value);
+        }
+
+
+        // --- CALCULATION FUNCTION ---
         function calculate() {
-            const currentAlt = parseFloat(document.getElementById('currentAlt').value);
-            const targetAlt = parseFloat(document.getElementById('targetAlt').value);
+            const currentAlt = document.getElementById('currentAlt').value;
+            const targetAlt = document.getElementById('targetAlt').value;
             const currentAltUnit = document.getElementById('currentAltUnit').value;
             const targetAltUnit = document.getElementById('targetAltUnit').value;
-            const speed = parseFloat(document.getElementById('speed').value);
+            const speed = document.getElementById('speed').value;
             const speedUnit = document.getElementById('speedUnit').value;
-            const adiAngle = parseFloat(document.getElementById('adiAngle').value);
-            const airportDistance = parseFloat(document.getElementById('airportDistance').value);
+            const adiAngle = document.getElementById('adiAngle').value;
+            const airportDistance = document.getElementById('airportDistance').value;
             const airportDistanceUnit = document.getElementById('airportDistanceUnit').value;
 
-            if (isNaN(currentAlt) || isNaN(targetAlt) || isNaN(speed) || isNaN(adiAngle)) {
+            // --- INPUT VALIDATION ---
+            const isValidCurrentAlt = isValidNumber(currentAlt);
+            const isValidTargetAlt = isValidNumber(targetAlt);
+            const isValidSpeed = isValidNumber(speed);
+            const isValidAdiAngle = isValidNumber(adiAngle);
+            const isValidAirportDistance = isValidNumber(airportDistance);
+
+            if (!isValidCurrentAlt || !isValidTargetAlt || !isValidSpeed || !isValidAdiAngle) {
                 document.getElementById('results').innerHTML = `
                     <div class="empty-state">
                         <div class="icon">📊</div>
@@ -431,29 +576,24 @@
                 return;
             }
 
-            // Convert to standard units
-            const currentAltM = convertToMeters(currentAlt, currentAltUnit);
-            const targetAltM = convertToMeters(targetAlt, targetAltUnit);
-            const speedMps = convertToMps(speed, speedUnit);
-            const angle = adiAngle;
+            // --- CONVERSIONS ---
+            const currentAltM = convertToMeters(parseFloat(currentAlt), currentAltUnit);
+            const targetAltM = convertToMeters(parseFloat(targetAlt), targetAltUnit);
+            const speedMps = convertToMps(parseFloat(speed), speedUnit);
+            const angle = parseFloat(adiAngle);
 
-            // Calculate altitude difference
+            // --- CALCULATIONS ---
             const altDiff = targetAltM - currentAltM;
-
-            // Calculate vertical speed
             const verticalSpeedMps = speedMps * Math.sin(angle * Math.PI / 180);
-            const verticalSpeedFpm = verticalSpeedMps * 196.85; // convert to ft/min
-
-            // Calculate time to reach altitude
+            const verticalSpeedFpm = verticalSpeedMps * 196.85;
             const timeMinutes = Math.abs(altDiff / verticalSpeedMps / 60);
-
-            // Calculate horizontal distance
             const horizontalSpeedMps = speedMps * Math.cos(angle * Math.PI / 180);
             const distanceKm = (horizontalSpeedMps * timeMinutes * 60) / 1000;
 
+            // --- AIRPORT REACHABILITY STATUS ---
             let airportStatusHtml = '';
-            if (!isNaN(airportDistance)) {
-                const airportDistanceKm = convertDistanceToKm(airportDistance, airportDistanceUnit);
+            if (isValidAirportDistance) {
+                const airportDistanceKm = convertDistanceToKm(parseFloat(airportDistance), airportDistanceUnit);
                 const canReachAirport = distanceKm <= airportDistanceKm;
 
                 airportStatusHtml = `
@@ -464,6 +604,7 @@
                 `;
             }
 
+            // --- POPULATE RESULTS ---
             document.getElementById('results').innerHTML = `
                 ${airportStatusHtml}
                 <div class="result-card">
@@ -486,15 +627,59 @@
             `;
         }
 
-        // Add event listeners to all inputs
+        // --- EVENT LISTENERS AND INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', function() {
             const inputs = ['currentAlt', 'targetAlt', 'currentAltUnit', 'targetAltUnit', 'speed', 'speedUnit', 'adiAngle', 'airportDistance', 'airportDistanceUnit'];
+            const adiSlider = document.getElementById('adiAngle');
+            const adiAngleValue = document.getElementById('adiAngleValue');
+            const profileSelect = document.getElementById('profileSelect');
 
+            // --- GENERAL INPUT LISTENERS ---
             inputs.forEach(id => {
                 const element = document.getElementById(id);
                 if (element) {
                     element.addEventListener('input', calculate);
                     element.addEventListener('change', calculate);
+                }
+            });
+
+            // --- ADI SLIDER LISTENER ---
+            adiSlider.addEventListener('input', function() {
+                adiAngleValue.textContent = `${this.value} °`; // Update displayed value
+                calculate(); // Recalculate on slider change
+            });
+
+            // --- PROFILE SELECTION ---
+            profileSelect.addEventListener('change', function() {
+                const selectedProfile = this.value;
+                if (selectedProfile === 'custom') {
+                    // Clear all fields or do nothing
+                    inputs.forEach(id => {
+                        const element = document.getElementById(id);
+                        if (element && element.type !== 'select-one') {
+                            element.value = '';  // Clear all input fields
+                        }
+                    });
+                    document.getElementById('adiAngle').value = 0;  // Reset slider
+                    adiAngleValue.textContent = '0.0 °';
+                    calculate();
+                } else if (profiles[selectedProfile]) {
+                    const profileData = profiles[selectedProfile];
+                    // Set fields from the selected profile
+                    for (const key in profileData) {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            if (element.type === 'number' || element.type === 'text') { // Handle number and text input types
+                                element.value = profileData[key] !== null ? profileData[key] : ''; // Set values if not null
+                            } else if (element.tagName === 'INPUT' && element.type === 'range') {
+                                element.value = profileData[key]; // For the slider
+                                adiAngleValue.textContent = `${profileData[key]} °`;
+                            } else if (element.tagName === 'SELECT') {
+                                // No direct assignment for selects.  Consider if needed later.
+                            }
+                        }
+                    }
+                    calculate(); // Recalculate with new profile data
                 }
             });
         });
