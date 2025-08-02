@@ -4,637 +4,637 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilot Flight Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://cdn.jsdelivr.net/npm/@tabler/icons@2.44.0/icons/plane.svg" type="image/svg+xml">
     <style>
-        /* General Styles */
+        /* --- RESET & BASE --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        body {
+        html, body {
             min-height: 100vh;
-            background: linear-gradient(145deg, #0a1326, #1a3b8c, #2a2a72);
+            background: linear-gradient(135deg, #1e293b 0%, #0d1e3f 100%);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 8px;
-            color: #f1f5f9;
+            padding: 18px;
+            background-image:
+                radial-gradient(circle at 70% 10%, rgba(30, 58, 138, 0.2) 0%, transparent 70%),
+                radial-gradient(circle at 20% 90%, rgba(34, 197, 94, 0.12) 0%, transparent 70%);
         }
 
+        /* --- CONTAINER & CARD --- */
         .container {
             width: 100%;
-            max-width: 900px;
-            height: 100%;
+            max-width: 950px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-
         .main-card {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(16px);
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.25);
             width: 100%;
-            height: 100%;
-            overflow-y: auto;
-            scrollbar-width: none;
-            animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(17, 24, 39, 0.72);
+            border-radius: 22px;
+            padding: 26px 24px 20px 24px;
+            box-shadow: 0 10px 40px 0 rgba(30,41,59,0.4), 0 1.5px 4px rgba(30,58,138,0.075);
+            border: 1.5px solid rgba(59,130,246,0.10);
+            backdrop-filter: blur(22px);
+            position: relative;
+            overflow: hidden;
+            animation: cardAppear 1.1s cubic-bezier(.46,.03,.52,.96);
+        }
+        @keyframes cardAppear {
+            from { opacity: 0; transform: scale(0.98) translateY(22px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        .main-card::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Header Styles */
+        /* --- HEADER --- */
         .header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            opacity: 0;
-            animation: slideIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+            gap: 20px;
+            margin-bottom: 22px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(59,130,246,0.06);
+            position: relative;
         }
-
         .header-icon {
-            background: linear-gradient(45deg, #3b82f6, #60a5fa);
-            padding: 8px;
-            border-radius: 8px;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+            background: linear-gradient(135deg, #3b82f6 60%, #67e8f9 100%);
+            padding: 12px;
+            border-radius: 14px;
+            display: flex;
+            box-shadow: 0 4px 18px rgba(59,130,246,0.10);
+            transition: transform 0.5s, box-shadow 0.3s;
         }
-
         .header-icon:hover {
-            transform: rotate(360deg) scale(1.1);
-            box-shadow: 0 3px 12px rgba(59, 130, 246, 0.4);
+            transform: rotate(-12deg) scale(1.06);
+            box-shadow: 0 4px 18px rgba(59,130,246,0.18);
         }
-
         .header-icon svg {
-            width: 20px;
-            height: 20px;
-            fill: #ffffff;
+            width: 32px;
+            height: 32px;
+            fill: #fff;
+            filter: drop-shadow(0 1px 2px #2563eb60);
         }
-
-        .header h1 {
-            font-size: 1.4rem;
+        .header-content h1 {
+            font-size: 2.1rem;
             font-weight: 800;
-            letter-spacing: -0.02em;
-            background: linear-gradient(90deg, #3b82f6, #a5b4fc);
+            letter-spacing: -0.01em;
+            background: linear-gradient(90deg, #3b82f6 60%, #67e8f9 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            margin-bottom: 4px;
+            text-shadow: 0 3px 10px rgba(59,130,246,0.12);
         }
-
-        .header p {
-            color: #a1b2c3;
-            margin-top: 4px;
-            font-size: 0.85rem;
+        .header-content p {
+            color: #bae6fd;
+            font-size: 1.07rem;
             letter-spacing: 0.02em;
+            opacity: 0.8;
+        }
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 35px;
+            width: 90px;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #3b82f6 40%, #a5b4fc 100%);
+            opacity: 0.18;
         }
 
-        /* Content & Sections Styles */
+        /* --- CONTENT GRID --- */
         .content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            height: calc(100% - 48px);
+            grid-template-columns: 1.1fr 1fr;
+            gap: 28px;
+            align-items: start;
+            min-height: 420px;
+        }
+        @media (max-width: 1050px) {
+            .content { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 780px) {
+            .main-card { padding: 10px 2vw; }
+            .content { gap: 17px; }
+        }
+        @media (max-width: 600px) {
+            .main-card { padding: 4px 0; }
+            .header { gap: 10px; }
+            .header-icon svg { width: 22px; height: 22px; }
+            .header-content h1 { font-size: 1.2rem; }
+            .content { gap: 10px; }
         }
 
+        /* --- SECTIONS --- */
         .input-section, .results-section {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: background 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            animation: slideIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+            background: rgba(30,41,59,0.85);
+            box-shadow: 0 2px 12px rgba(59,130,246,0.05);
+            border-radius: 14px;
+            border: 1.5px solid rgba(59,130,246,0.07);
+            padding: 22px 18px 16px 18px;
+            position: relative;
+            min-width: 250px;
+            transition: box-shadow 0.5s, background 0.5s;
         }
-
+        .input-section {
+            z-index: 2;
+        }
+        .results-section {
+            z-index: 2;
+        }
         .input-section:hover, .results-section:hover {
-            background: rgba(255, 255, 255, 0.14);
-            transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            background: rgba(36, 52, 89, 0.94);
+            box-shadow: 0 6px 28px rgba(59,130,246,0.09);
         }
 
+        /* --- SECTION TITLES --- */
         .section-title {
-            font-size: 1rem;
+            font-size: 1.07rem;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: linear-gradient(90deg, #3b82f6, #93c5fd);
+            gap: 10px;
+            background: linear-gradient(90deg, #3b82f6, #a5b4fc 80%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-shadow: 0 1px 3px #1e293b18;
+            letter-spacing: 0.01em;
         }
-
         .section-title svg {
-            width: 16px;
-            height: 16px;
+            width: 21px;
+            height: 21px;
             fill: #60a5fa;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-right: 2px;
+            opacity: 0.9;
         }
 
-        .section-title:hover svg {
-            transform: rotate(180deg);
-        }
-
-        /* Input Styles */
+        /* --- INPUTS --- */
         .input-group {
-            margin-bottom: 12px;
-            opacity: 0;
-            animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            animation-delay: calc(0.7s + var(--order) * 0.1s);
+            margin-bottom: 18px;
+            animation: fadeInUp 0.8s both;
+            animation-delay: calc(0.3s + var(--order) * 0.08s);
         }
-
         .input-label {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.93rem;
             font-weight: 500;
-            color: #cbd5e1;
-            margin-bottom: 6px;
-            transition: color 0.3s ease, transform 0.3s ease;
+            color: #bae6fd;
+            margin-bottom: 5px;
+            margin-left: 2px;
+            letter-spacing: 0.03em;
+            transition: color 0.3s, transform 0.3s;
         }
-
         .input-group:hover .input-label {
-            color: #93c5fd;
-            transform: translateY(-1px);
+            color: #38bdf8;
+            transform: translateY(-1.5px);
         }
-
         .input-row {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             align-items: center;
         }
-
-        .input-field {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 6px;
-            padding: 8px 12px;
-            color: #f1f5f9;
-            font-size: 0.8rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        .input-field, .unit-select, .profile-select {
+            border-radius: 8px;
+            border: 1.5px solid rgba(59,130,246,0.19);
+            padding: 10px 12px;
+            font-size: 0.98rem;
+            color: #e0f2fe;
+            background: rgba(30,41,59,0.91);
+            outline: none;
+            transition: border 0.3s, box-shadow 0.3s, background 0.3s;
         }
-
+        .input-field:focus, .unit-select:focus, .profile-select:focus {
+            border: 2px solid #3b82f6;
+            background: rgba(30,41,59,1);
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.13);
+        }
         .input-field::placeholder {
-            color: rgba(255, 255, 255, 0.3);
+            color: #64748b;
+            opacity: 0.6;
         }
-
-        .input-field:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
-            background: rgba(255, 255, 255, 0.18);
-            transform: scale(1.02);
+        .unit-select, .profile-select {
+            min-width: 88px;
         }
-
-        .unit-select {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 6px;
-            padding: 8px;
-            color: #f1f5f9;
-            font-size: 0.8rem;
-            min-width: 70px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .unit-select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
-            transform: scale(1.02);
-        }
-
-        .unit-select option {
-            background: #1e40af;
+        .unit-select option, .profile-select option {
+            background: #1e293b;
             color: #f1f5f9;
         }
+        @media (max-width:600px) {
+            .input-row { flex-direction: column; gap: 5px; }
+            .input-field, .unit-select, .profile-select { width: 100%; }
+        }
 
-        /* ADI Slider Styles */
+        /* --- ADI SLIDER --- */
         .adi-slider-container {
             width: 100%;
             display: flex;
             flex-direction: column;
             position: relative;
         }
-
+        .adi-slider-value {
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 1.09rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            background: linear-gradient(90deg,#38bdf8 60%,#67e8f9 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: transform 0.3s;
+            user-select: none;
+        }
+        .adi-slider-container:hover .adi-slider-value {
+            transform: scale(1.08);
+        }
         .adi-slider {
             width: 100%;
             -webkit-appearance: none;
             appearance: none;
-            height: 6px;
-            background: linear-gradient(to right, #ef4444, #ffffff, #22c55e);
-            border-radius: 3px;
-            margin-bottom: 8px;
-            transition: background 0.4s ease;
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+            height: 8px;
+            background: linear-gradient(90deg, #ef4444 10%, #ffffff 50%, #22c55e 90%);
+            border-radius: 5px;
+            margin-bottom: 7px;
+            box-shadow: 0 2px 8px rgba(16,185,129,0.08);
+            outline: none;
+            transition: background 0.35s;
         }
-
         .adi-slider:hover {
-            background: linear-gradient(to right, #dc2626, #e2e8f0, #16a34a);
+            background: linear-gradient(90deg, #f43f5e 0%, #3b82f6 50%, #22d3ee 100%);
         }
-
         .adi-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 18px;
-            height: 18px;
-            background: linear-gradient(45deg, #3b82f6, #60a5fa);
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, #67e8f9 0%, #3b82f6 95%);
             border-radius: 50%;
             cursor: grab;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 3px 12px rgba(59,130,246,0.13);
+            border: 2px solid #60a5fa;
+            transition: transform 0.25s, box-shadow 0.25s;
         }
-
-        .adi-slider::-moz-range-thumb {
-            width: 18px;
-            height: 18px;
-            background: linear-gradient(45deg, #3b82f6, #60a5fa);
-            border-radius: 50%;
-            cursor: grab;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .adi-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-            box-shadow: 0 5px 16px rgba(59, 130, 246, 0.5);
-        }
-
-        .adi-slider::-moz-range-thumb:hover {
-            transform: scale(1.2);
-            box-shadow: 0 5px 16px rgba(59, 130, 246, 0.5);
-        }
-
         .adi-slider:active::-webkit-slider-thumb {
-            cursor: grabbing;
-            transform: scale(0.9);
+            cursor: grabbing; transform: scale(0.88);
         }
-
+        .adi-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.17);
+            box-shadow: 0 5px 18px #38bdf8b0;
+        }
+        .adi-slider::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, #67e8f9 0%, #3b82f6 95%);
+            border-radius: 50%;
+            cursor: grab;
+            border: 2px solid #60a5fa;
+        }
         .adi-slider:active::-moz-range-thumb {
-            cursor: grabbing;
-            transform: scale(0.9);
+            cursor: grabbing; transform: scale(0.88);
+        }
+        .adi-slider::-moz-range-thumb:hover {
+            transform: scale(1.17);
+            box-shadow: 0 5px 18px #38bdf8b0;
         }
 
-        .adi-slider-value {
-            text-align: center;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            background: linear-gradient(90deg, #3b82f6, #a5b4fc);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            transition: transform 0.3s ease;
-        }
-
-        .adi-slider-container:hover .adi-slider-value {
-            transform: scale(1.05);
-        }
-
-        /* Result Card Styles */
+        /* --- RESULTS --- */
         .result-card {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.08));
-            border: 1px solid rgba(34, 197, 94, 0.35);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 12px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            animation-delay: calc(0.9s + var(--order) * 0.1s);
+            background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(59,130,246,0.09));
+            border: 1.5px solid rgba(59,130,246,0.22);
+            border-radius: 11px;
+            padding: 14px 13px 10px 15px;
+            margin-bottom: 13px;
+            transition: background 0.4s, transform 0.35s;
+            animation: fadeInUp 0.7s both;
+            animation-delay: calc(0.35s + var(--order) * 0.07s);
+            box-shadow: 0 2px 10px rgba(34,197,94,0.07);
         }
-
         .result-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.12));
+            background: linear-gradient(135deg, rgba(59,130,246,0.17), rgba(34,197,94,0.16));
+            transform: translateY(-5px) scale(1.025);
         }
-
         .result-card.blue {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.08));
-            border-color: rgba(59, 130, 246, 0.35);
+            background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(59,130,246,0.1));
+            border-color: rgba(59,130,246,0.26);
         }
-
-        .result-card.blue:hover {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.12));
-        }
-
         .result-card.purple {
-            background: linear-gradient(135deg, rgba(147, 51, 234, 0.15), rgba(147, 51, 234, 0.08));
-            border-color: rgba(147, 51, 234, 0.35);
+            background: linear-gradient(135deg, rgba(147,51,234,0.15), rgba(147,51,234,0.09));
+            border-color: rgba(147,51,234,0.23);
         }
-
-        .result-card.purple:hover {
-            background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(147, 51, 234, 0.12));
-        }
-
         .result-card.red {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.08));
-            border-color: rgba(239, 68, 68, 0.35);
+            background: linear-gradient(135deg, rgba(239,68,68,0.13), rgba(239,68,68,0.07));
+            border-color: rgba(239,68,68,0.19);
         }
-
-        .result-card.red:hover {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.12));
-        }
-
         .result-label {
-            font-size: 0.8rem;
-            color: #a1b2c3;
+            font-size: 0.94rem;
+            color: #bae6fd;
             margin-bottom: 4px;
             letter-spacing: 0.03em;
-            transition: color 0.3s ease;
         }
-
         .result-card:hover .result-label {
-            color: #cbd5e1;
+            color: #f0fdfa;
         }
-
         .result-value {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1.23rem;
+            font-weight: 800;
             display: flex;
             align-items: baseline;
             gap: 6px;
-            background: linear-gradient(90deg, #3b82f6, #a5b4fc);
+            background: linear-gradient(90deg, #67e8f9, #a5b4fc 70%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: 0.01em;
         }
-
         .result-subtext {
-            font-size: 0.85rem;
+            font-size: 0.97rem;
             color: #a1b2c3;
-        }
-
-        /* Empty State & Notes Styles */
-        .empty-state {
-            text-align: center;
-            padding: 32px 0;
-            opacity: 0;
-            animation: fadeIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.7s forwards;
-        }
-
-        .empty-state .icon {
-            color: rgba(255, 255, 255, 0.25);
-            margin-bottom: 8px;
-            font-size: 2.5rem;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .empty-state:hover .icon {
-            transform: scale(1.2) rotate(10deg);
-        }
-
-        .empty-state .text {
-            color: #e2e8f0;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
             font-weight: 500;
-            background: linear-gradient(90deg, #3b82f6, #93c5fd);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
         }
 
-        .empty-state .subtext {
-            font-size: 0.8rem;
-            color: #64748b;
-        }
-
-        .notes {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.06));
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-top: 16px;
-            opacity: 0;
-            animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.9s forwards;
-        }
-
-        .notes h4 {
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(90deg, #3b82f6, #a5b4fc);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .notes ul {
-            list-style: none;
-        }
-
-        .notes li {
-            font-size: 0.8rem;
-            color: #a1b2c3;
-            margin-bottom: 8px;
-            position: relative;
-            padding-left: 16px;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-
-        .notes li:hover {
-            color: #cbd5e1;
-            transform: translateX(3px);
-        }
-
-        .notes li::before {
-            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="%233b82f6"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>');
-            position: absolute;
-            left: 0;
-            top: 2px;
-        }
-
-        /* Airport Status Styles */
+        /* --- AIRPORT STATUS --- */
         .airport-status {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.7s forwards;
-        }
-
-        .airport-status:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-        }
-
-        .airport-status.success {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.08));
-            border: 1px solid rgba(34, 197, 94, 0.35);
+            padding: 13px 0px 12px 0px;
+            border-radius: 10px;
+            margin-bottom: 13px;
+            font-weight: 700;
+            font-size: 1.02rem;
+            background: linear-gradient(90deg, rgba(34,197,94,0.12), rgba(59,130,246,0.07));
+            border: 1.5px solid rgba(34,197,94,0.20);
             color: #22c55e;
+            animation: fadeInUp 0.65s both;
+            animation-delay: 0.46s;
+            box-shadow: 0 1.5px 8px rgba(34,197,94,0.04);
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
         }
-
         .airport-status.danger {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.08));
-            border: 1px solid rgba(239, 68, 68, 0.35);
+            background: linear-gradient(90deg, rgba(239,68,68,0.13), rgba(239,68,68,0.08));
+            border-color: rgba(239,68,68,0.18);
             color: #ef4444;
         }
-
-        .status-indicator {
-            font-size: 1.2rem;
+        .airport-status .status-indicator {
+            font-size: 1.35em;
             margin-right: 8px;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.5s;
         }
-
         .airport-status:hover .status-indicator {
-            transform: scale(1.3);
+            transform: scale(1.2);
         }
 
-        /* Profile Select Styles */
-        .profile-select {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 6px;
-            padding: 8px;
-            color: #f1f5f9;
-            font-size: 0.8rem;
-            margin-bottom: 12px;
-            width: 100%;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        /* --- EMPTY STATE --- */
+        .empty-state {
+            text-align: center;
+            padding: 46px 0 32px 0;
+            animation: fadeIn 1.0s both;
+            opacity: 0.96;
+        }
+        .empty-state .icon {
+            color: #67e8f9;
+            margin-bottom: 14px;
+            font-size: 2.3rem;
+            opacity: 0.43;
+        }
+        .empty-state .text {
+            color: #a5b4fc;
+            font-size: 1.08rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            letter-spacing: 0.01em;
+        }
+        .empty-state .subtext {
+            font-size: 0.97rem;
+            color: #64748b;
         }
 
-        .profile-select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
-            transform: scale(1.02);
+        /* --- NOTES --- */
+        .notes {
+            background: linear-gradient(120deg,rgba(16,185,129,0.12),rgba(59,130,246,0.09));
+            padding: 15px 14px 12px 18px;
+            border-radius: 12px;
+            border: 1.5px solid rgba(59,130,246,0.18);
+            margin-top: 18px;
+            animation: fadeInUp 0.8s both;
+            animation-delay: 0.7s;
+        }
+        .notes h4 {
+            font-size: 1.04rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #38bdf8, #a5b4fc 70%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .notes ul {
+            list-style: none;
+        }
+        .notes li {
+            font-size: 0.96rem;
+            color: #bae6fd;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 22px;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .notes li:hover {
+            color: #f0fdfa;
+            transform: translateX(3px);
+        }
+        .notes li::before {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="%2338bdf8"><circle cx="12" cy="12" r="8"/></svg>');
+            position: absolute;
+            left: 0;
+            top: 2px;
+            opacity: 0.83;
         }
 
-        .profile-select option {
-            background: #1e40af;
-            color: #f1f5f9;
-        }
-
-        /* Animations */
+        /* --- ANIMATIONS --- */
         @keyframes fadeIn {
             from { opacity: 0; }
-            to { opacity: 1; }
+            to   { opacity: 1; }
         }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(30px);}
+            to   { opacity: 1; transform: translateY(0);}
         }
 
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .content {
-                grid-template-columns: 1fr;
-                gap: 12px;
-                height: auto;
-            }
-
-            .main-card {
-                padding: 12px;
-            }
+        .settings-btn {
+            position: absolute;
+            top: 22px;
+            right: 34px;
+            z-index: 20;
+            background: linear-gradient(135deg, #3b82f6 60%, #67e8f9 100%);
+            border: none;
+            border-radius: 9px;
+            padding: 8px 10px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(59,130,246,0.15);
+            transition: background 0.2s, box-shadow 0.25s, transform 0.15s;
+            display: flex;
+            align-items: center;
+        }
+        .settings-btn:active {
+            transform: scale(0.96);
+        }
+        .settings-btn svg {
+            width: 23px;
+            height: 23px;
+            fill: #fff;
+        }
+        @media (max-width: 600px) {
+            .settings-btn { top: 9px; right: 8px; }
+        }
+        .modal-bg {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(17,23,39,0.4);
+            z-index: 90;
+        }
+        .modal-bg.active { display: block; }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 100;
+            min-width: 280px;
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 32px 28px 24px 28px;
+            box-shadow: 0 8px 38px 0 #0006;
+            border: 2px solid #3b82f650;
+            animation: fadeIn 0.35s;
+        }
+        .modal.active { display: block; }
+        .modal-header {
+            font-size: 1.18rem;
+            font-weight: 700;
+            letter-spacing: .02em;
+            margin-bottom: 18px;
+            color: #67e8f9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .modal-close {
+            position: absolute;
+            right: 13px; top: 10px;
+            background: none;
+            border: none;
+            color: #bae6fd;
+            font-size: 1.9rem;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+        .modal-close:hover { opacity: 1; color: #3b82f6; }
+        .lang-select {
+            width: 100%;
+            margin-top: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1.5px solid #3b82f660;
+            color: #1e293b;
+            font-size: 1rem;
+            background: #bae6fd;
         }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 6px;
-            }
-
-            .input-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .input-field, .unit-select {
-                width: 100%;
-            }
-
-            .header h1 {
-                font-size: 1.2rem;
-            }
-
-            .result-value {
-                font-size: 1rem;
-            }
+        /* ПРОФИЛИ: новые элементы */
+        .profiles-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
         }
-
-        @media (max-width: 480px) {
-            .main-card {
-                padding: 10px;
-            }
-
-            .header-icon svg {
-                width: 16px;
-                height: 16px;
-            }
-
-            .section-title {
-                font-size: 0.9rem;
-            }
-
-            .result-value {
-                font-size: 0.9rem;
-            }
-
-            .empty-state .icon {
-                font-size: 2rem;
-            }
+        .profile-actions {
+            display: flex; gap: 7px; align-items: center;
         }
+        .add-profile-btn {
+            background: linear-gradient(90deg, #38bdf8 70%, #a7f3d0 100%);
+            border: none;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 1.01rem;
+            font-weight: 700;
+            color: #1e293b;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.12s;
+        }
+        .add-profile-btn:active { transform: scale(0.96); }
+        .profile-delete-btn {
+            background: none; border: none;
+            color: #ef4444; font-size: 1.3rem; cursor: pointer;
+            margin-left: 3px;
+        }
+        .profile-delete-btn:active { color: #b91c1c; }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body lang="en">
     <div class="container">
         <div class="main-card">
+            <!-- Settings button -->
+            <button class="settings-btn" id="settingsBtn" title="Settings">
+                <svg viewBox="0 0 24 24"><path d="M12 15.5A3.5 3.5 0 1 0 12 8.5a3.5 3.5 0 0 0 0 7zM19.43 12.98l1.77-1.02c.17-.1.24-.31.16-.49l-1.69-2.94a.37.37 0 0 0-.48-.17l-2.09.83a7.03 7.03 0 0 0-1.56-.9l-.32-2.22A.37.37 0 0 0 14.12 5h-3.24a.37.37 0 0 0-.37.31l-.32 2.22a7.03 7.03 0 0 0-1.56.9l-2.09-.83a.37.37 0 0 0-.48.17l-1.69 2.94a.37.37 0 0 0 .16.49l1.77 1.02c-.04.32-.07.65-.07.98s.03.66.07.98l-1.77 1.02a.37.37 0 0 0-.16.49l1.69 2.94c.09.17.31.24.48.17l2.09-.83c.48.36 1 .67 1.56.9l.32 2.22a.37.37 0 0 0 .37.31h3.24c.18 0 .33-.13.36-.31l.32-2.22c.56-.23 1.08-.54 1.56-.9l2.09.83c.17.07.39 0 .48-.17l1.69-2.94a.37.37 0 0 0-.16-.49l-1.77-1.02c.04-.32.07-.65.07-.98s-.03-.66-.07-.98z"/></svg>
+            </button>
+            <!-- Settings modal -->
+            <div class="modal-bg" id="modalBg"></div>
+            <div class="modal" id="settingsModal">
+                <button class="modal-close" id="modalCloseBtn" title="Close">&times;</button>
+                <div class="modal-header" id="modalHeader">Settings</div>
+                <div>
+                    <label for="langSelect" style="font-size:1rem;color:#bae6fd;font-weight:500;">
+                        Language / Язык / Idioma / Sprache
+                    </label>
+                    <select id="langSelect" class="lang-select">
+                        <option value="en">English</option>
+                        <option value="ru">Русский</option>
+                        <option value="es">Español</option>
+                        <option value="de">Deutsch</option>
+                    </select>
+                </div>
+            </div>
             <div class="header">
                 <div class="header-icon">
                     <svg viewBox="0 0 24 24">
                         <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
                     </svg>
                 </div>
-                <div>
-                    <h1>Pilot Flight Calculator</h1>
-                    <p>Flight parameters calculation tool</p>
+                <div class="header-content">
+                    <h1 id="title-main">Pilot Flight Calculator</h1>
+                    <p id="desc-main">Flight parameters calculation tool</p>
                 </div>
             </div>
-
             <div class="content">
                 <div class="input-section">
                     <h3 class="section-title">
                         <svg viewBox="0 0 24 24">
                             <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
                         </svg>
-                        Flight Parameters
+                        <span id="section-flight-params">Flight Parameters</span>
                     </h3>
-
-                    <!-- Profile Selection -->
-                    <div class="input-group" style="--order: 1;">
-                        <label class="input-label">Profile</label>
-                        <select id="profileSelect" class="profile-select">
-                            <option value="custom">Custom</option>
-                            <option value="approach">Standard Approach</option>
-                            <option value="short-field">Short Field Landing</option>
-                            <option value="climb-out">Climb Out</option>
-                        </select>
+                    <div class="profiles-row">
+                        <select id="profileSelect" class="profile-select" style="flex:1"></select>
+                        <div class="profile-actions">
+                            <button class="add-profile-btn" id="addProfileBtn" title="Add profile">+</button>
+                            <button class="profile-delete-btn" id="deleteProfileBtn" title="Delete profile" style="display:none;">🗑️</button>
+                        </div>
                     </div>
-
                     <div class="input-group" style="--order: 2;">
-                        <label class="input-label">Current Altitude</label>
+                        <label class="input-label" id="lbl-current-alt">Current Altitude</label>
                         <div class="input-row">
                             <input type="number" id="currentAlt" class="input-field" placeholder="Enter altitude">
                             <select id="currentAltUnit" class="unit-select">
@@ -643,9 +643,8 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="input-group" style="--order: 3;">
-                        <label class="input-label">Target Altitude</label>
+                        <label class="input-label" id="lbl-target-alt">Target Altitude</label>
                         <div class="input-row">
                             <input type="number" id="targetAlt" class="input-field" placeholder="Enter altitude">
                             <select id="targetAltUnit" class="unit-select">
@@ -654,9 +653,8 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="input-group" style="--order: 4;">
-                        <label class="input-label">Speed</label>
+                        <label class="input-label" id="lbl-speed">Speed</label>
                         <div class="input-row">
                             <input type="number" id="speed" class="input-field" placeholder="Enter speed">
                             <select id="speedUnit" class="unit-select">
@@ -667,17 +665,15 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="input-group" style="--order: 5;">
-                        <label class="input-label">ADI Angle (-15° to +15°)</label>
+                        <label class="input-label" id="lbl-adi">ADI Angle (-15° to +15°)</label>
                         <div class="adi-slider-container">
                             <div class="adi-slider-value" id="adiAngleValue">0 °</div>
-                            <input type="range" id="adiAngle" class="adi-slider" min="-15" max="15" step="0.1" value="0">
+                            <input type="range" id="adiAngle" class="adi-slider" min="-15" max="15" step="1" value="0">
                         </div>
                     </div>
-
                     <div class="input-group" style="--order: 6;">
-                        <label class="input-label">Distance to Airport</label>
+                        <label class="input-label" id="lbl-dist">Distance to Airport</label>
                         <div class="input-row">
                             <input type="number" id="airportDistance" class="input-field" placeholder="Enter distance">
                             <select id="airportDistanceUnit" class="unit-select">
@@ -688,248 +684,495 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="results-section">
-                    <h3 class="section-title">Calculation Results</h3>
-
+                    <h3 class="section-title" id="section-results-title">Calculation Results</h3>
                     <div id="results">
                         <div class="empty-state">
                             <div class="icon">📊</div>
-                            <div class="text">Fill in all fields</div>
-                            <div class="subtext">Calculation is performed automatically</div>
+                            <div class="text" id="fill-fields-text">Fill in all fields</div>
+                            <div class="subtext" id="calc-auto-text">Calculation is performed automatically</div>
                         </div>
                     </div>
-
                     <div class="notes">
-                        <h4>Notes:</h4>
+                        <h4 id="notes-header">Notes:</h4>
                         <ul>
-                            <li>Positive ADI angle = climb</li>
-                            <li>Negative ADI angle = descent</li>
-                            <li>Calculations are approximate, consider weather conditions</li>
-                            <li>The value of the Horizontal Distance is equal to the optimal distance to descend from the airport</li>
+                            <li id="note-1">Positive ADI angle = climb</li>
+                            <li id="note-2">Negative ADI angle = descent</li>
+                            <li id="note-3">Calculations are approximate, consider weather conditions</li>
+                            <li id="note-4">The value of the Horizontal Distance is equal to the optimal distance to descend from the airport</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <script>
-        // Debounce function to limit rapid calculations
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
+    // --- MULTILANG ---
+    const LANGS = {
+        en: {
+            title: "Pilot Flight Calculator",
+            desc: "Flight parameters calculation tool",
+            sectionFlightParams: "Flight Parameters",
+            sectionResults: "Calculation Results",
+            currentAlt: "Current Altitude",
+            targetAlt: "Target Altitude",
+            speed: "Speed",
+            adi: "ADI Angle (-15° to +15°)",
+            distance: "Distance to Airport",
+            fillFields: "Fill in all fields",
+            calcAuto: "Calculation is performed automatically",
+            notes: "Notes:",
+            note1: "Positive ADI angle = climb",
+            note2: "Negative ADI angle = descent",
+            note3: "Calculations are approximate, consider weather conditions",
+            note4: "The value of the Horizontal Distance is equal to the optimal distance to descend from the airport",
+            addProfile: "Add profile",
+            deleteProfile: "Delete profile",
+            custom: "Custom",
+            approach: "Standard Approach",
+            shortField: "Short Field Landing",
+            climbOut: "Climb Out",
+            settings: "Settings",
+            langLabel: "Language / Язык / Idioma / Sprache",
+            enterAlt: "Enter altitude",
+            enterSpeed: "Enter speed",
+            enterDist: "Enter distance",
+            newProfileName: "Profile name"
+        },
+        ru: {
+            title: "Калькулятор пилота",
+            desc: "Инструмент расчёта параметров полёта",
+            sectionFlightParams: "Параметры полёта",
+            sectionResults: "Результаты расчёта",
+            currentAlt: "Текущая высота",
+            targetAlt: "Целевая высота",
+            speed: "Скорость",
+            adi: "Угол ADI (-15° до +15°)",
+            distance: "Расстояние до аэродрома",
+            fillFields: "Заполните все поля",
+            calcAuto: "Расчёт производится автоматически",
+            notes: "Примечания:",
+            note1: "Положительный угол ADI = набор высоты",
+            note2: "Отрицательный угол ADI = снижение",
+            note3: "Расчёты приблизительны, учитывайте погодные условия",
+            note4: "Горизонтальная дистанция — оптимальное расстояние для снижения с аэродрома",
+            addProfile: "Добавить профиль",
+            deleteProfile: "Удалить профиль",
+            custom: "Пользовательский",
+            approach: "Стандартный заход",
+            shortField: "Посадка на короткую полосу",
+            climbOut: "Набор высоты",
+            settings: "Настройки",
+            langLabel: "Язык / Language / Idioma / Sprache",
+            enterAlt: "Введите высоту",
+            enterSpeed: "Введите скорость",
+            enterDist: "Введите расстояние",
+            newProfileName: "Имя профиля"
+        },
+        es: {
+            title: "Calculadora de Vuelo",
+            desc: "Herramienta de cálculo de parámetros de vuelo",
+            sectionFlightParams: "Parámetros de Vuelo",
+            sectionResults: "Resultados del Cálculo",
+            currentAlt: "Altitud Actual",
+            targetAlt: "Altitud Objetivo",
+            speed: "Velocidad",
+            adi: "Ángulo ADI (-15° a +15°)",
+            distance: "Distancia al aeropuerto",
+            fillFields: "Complete todos los campos",
+            calcAuto: "El cálculo se realiza automáticamente",
+            notes: "Notas:",
+            note1: "Ángulo ADI positivo = ascenso",
+            note2: "Ángulo ADI negativo = descenso",
+            note3: "Los cálculos son aproximados, tenga en cuenta el clima",
+            note4: "La Distancia Horizontal es la distancia óptima para descender desde el aeropuerto",
+            addProfile: "Añadir perfil",
+            deleteProfile: "Eliminar perfil",
+            custom: "Personalizado",
+            approach: "Aproximación estándar",
+            shortField: "Aterrizaje en pista corta",
+            climbOut: "Ascenso",
+            settings: "Ajustes",
+            langLabel: "Idioma / Язык / Language / Sprache",
+            enterAlt: "Introduzca la altitud",
+            enterSpeed: "Introduzca la velocidad",
+            enterDist: "Introduzca la distancia",
+            newProfileName: "Nombre del perfil"
+        },
+        de: {
+            title: "Pilot Flugrechner",
+            desc: "Berechnungstool für Flugparameter",
+            sectionFlightParams: "Flugparameter",
+            sectionResults: "Berechnungsergebnisse",
+            currentAlt: "Aktuelle Höhe",
+            targetAlt: "Zielhöhe",
+            speed: "Geschwindigkeit",
+            adi: "ADI-Winkel (-15° bis +15°)",
+            distance: "Entfernung zum Flughafen",
+            fillFields: "Alle Felder ausfüllen",
+            calcAuto: "Berechnung erfolgt automatisch",
+            notes: "Hinweise:",
+            note1: "Positiver ADI-Winkel = Steigflug",
+            note2: "Negativer ADI-Winkel = Sinkflug",
+            note3: "Berechnungen sind Näherungswerte, Wetterbedingungen berücksichtigen",
+            note4: "Der Wert der horizontalen Entfernung ist die optimale Entfernung zum Sinkflug vom Flughafen",
+            addProfile: "Profil hinzufügen",
+            deleteProfile: "Profil löschen",
+            custom: "Benutzerdefiniert",
+            approach: "Standardanflug",
+            shortField: "Kurzbahnlandung",
+            climbOut: "Steigflug",
+            settings: "Einstellungen",
+            langLabel: "Sprache / Язык / Language / Idioma",
+            enterAlt: "Höhe eingeben",
+            enterSpeed: "Geschwindigkeit eingeben",
+            enterDist: "Entfernung eingeben",
+            newProfileName: "Profilname"
         }
+    };
 
-        // --- PROFILE DATA ---
-        const profiles = {
-            approach: {
-                currentAlt: null,
-                targetAlt: 0,
-                speed: null,
-                adiAngle: -3,
-                airportDistance: null
-            },
-            "short-field": {
-                currentAlt: null,
-                targetAlt: 0,
-                speed: null,
-                adiAngle: -4,
-                airportDistance: null
-            },
-            "climb-out": {
-                currentAlt: 0,
-                targetAlt: null,
-                speed: null,
-                adiAngle: 10,
-                airportDistance: null
-            },
+    // Хранилище для профилей (включая custom)
+    let profiles = {};
+    const builtInProfiles = [
+        { id: 'custom', labelKey: 'custom', data: {} },
+        { id: 'approach', labelKey: 'approach', data: { currentAlt: '', targetAlt: 0, speed: '', adiAngle: -3, airportDistance: '' } },
+        { id: 'short-field', labelKey: 'shortField', data: { currentAlt: '', targetAlt: 0, speed: '', adiAngle: -4, airportDistance: '' } },
+        { id: 'climb-out', labelKey: 'climbOut', data: { currentAlt: 0, targetAlt: '', speed: '', adiAngle: 10, airportDistance: '' } },
+    ];
+    function getProfileLabel(id, lang='en') {
+        const builtIn = builtInProfiles.find(p => p.id === id);
+        if (builtIn) return LANGS[lang][builtIn.labelKey] || id;
+        return profiles[id]?.name || id;
+    }
+    // Заполнение профилей (сначала built-in, потом пользовательские из localStorage)
+    function loadProfiles() {
+        profiles = {};
+        builtInProfiles.forEach(p => {
+            profiles[p.id] = { name: null, ...p.data };
+        });
+        // Пользовательские профили из localStorage
+        try {
+            const userProfiles = JSON.parse(localStorage.getItem('pilot_profiles')||'{}');
+            for (const [id, obj] of Object.entries(userProfiles)) {
+                profiles[id] = obj;
+            }
+        } catch{}
+    }
+    function saveUserProfiles() {
+        // user-only, без built-in
+        const userProfiles = {};
+        for (const [id, obj] of Object.entries(profiles)) {
+            if (!builtInProfiles.find(p=>p.id===id)) {
+                userProfiles[id] = obj;
+            }
+        }
+        localStorage.setItem('pilot_profiles', JSON.stringify(userProfiles));
+    }
+
+    // --- МУЛЬТИЯЗЫКОВЫЙ ИНТЕРФЕЙС ---
+    function setLang(lang) {
+        document.documentElement.lang = lang;
+        document.body.lang = lang;
+        document.getElementById('title-main').innerText = LANGS[lang].title;
+        document.getElementById('desc-main').innerText = LANGS[lang].desc;
+        document.getElementById('section-flight-params').innerText = LANGS[lang].sectionFlightParams;
+        document.getElementById('section-results-title').innerText = LANGS[lang].sectionResults;
+        document.getElementById('lbl-current-alt').innerText = LANGS[lang].currentAlt;
+        document.getElementById('lbl-target-alt').innerText = LANGS[lang].targetAlt;
+        document.getElementById('lbl-speed').innerText = LANGS[lang].speed;
+        document.getElementById('lbl-adi').innerText = LANGS[lang].adi;
+        document.getElementById('lbl-dist').innerText = LANGS[lang].distance;
+        document.getElementById('fill-fields-text').innerText = LANGS[lang].fillFields;
+        document.getElementById('calc-auto-text').innerText = LANGS[lang].calcAuto;
+        document.getElementById('notes-header').innerText = LANGS[lang].notes;
+        document.getElementById('note-1').innerText = LANGS[lang].note1;
+        document.getElementById('note-2').innerText = LANGS[lang].note2;
+        document.getElementById('note-3').innerText = LANGS[lang].note3;
+        document.getElementById('note-4').innerText = LANGS[lang].note4;
+        // Плейсхолдеры
+        document.getElementById('currentAlt').placeholder = LANGS[lang].enterAlt;
+        document.getElementById('targetAlt').placeholder = LANGS[lang].enterAlt;
+        document.getElementById('speed').placeholder = LANGS[lang].enterSpeed;
+        document.getElementById('airportDistance').placeholder = LANGS[lang].enterDist;
+        document.getElementById('addProfileBtn').title = LANGS[lang].addProfile;
+        document.getElementById('deleteProfileBtn').title = LANGS[lang].deleteProfile;
+        document.getElementById('settingsBtn').title = LANGS[lang].settings;
+        document.getElementById('modalHeader').innerText = LANGS[lang].settings;
+        document.querySelector('label[for="langSelect"]').innerText = LANGS[lang].langLabel;
+
+        // Перезаполнить селектор профилей
+        fillProfileOptions();
+    }
+    function getLang() {
+        return localStorage.getItem('pilot_lang') || 'en';
+    }
+
+    // --- ПРОФИЛЬНАЯ ЛОГИКА ---
+    function fillProfileOptions() {
+        const lang = getLang();
+        const sel = document.getElementById('profileSelect');
+        sel.innerHTML = '';
+        for (const id of Object.keys(profiles)) {
+            const opt = document.createElement('option');
+            opt.value = id;
+            opt.innerText = getProfileLabel(id, lang);
+            sel.appendChild(opt);
+        }
+        // если выбранный профиля больше не существует, выбрать custom
+        if (!profiles[sel.value]) sel.value = 'custom';
+        // delete btn виден только для пользовательских профилей
+        const showDelete = !builtInProfiles.find(p=>p.id===sel.value);
+        document.getElementById('deleteProfileBtn').style.display = showDelete?'inline-block':'none';
+    }
+    function saveCurrentProfileData(profileId) {
+        // сохраняет текущие данные в profiles[profileId]
+        if (!profiles[profileId]) return;
+        profiles[profileId].currentAlt = document.getElementById('currentAlt').value;
+        profiles[profileId].targetAlt = document.getElementById('targetAlt').value;
+        profiles[profileId].speed = document.getElementById('speed').value;
+        profiles[profileId].adiAngle = parseInt(document.getElementById('adiAngle').value,10);
+        profiles[profileId].airportDistance = document.getElementById('airportDistance').value;
+        saveUserProfiles();
+    }
+    function setFieldsFromProfile(profileId) {
+        // Не сбрасывает значения, если профиль выбран тот же
+        if (!profiles[profileId]) return;
+        const prof = profiles[profileId];
+        document.getElementById('currentAlt').value = prof.currentAlt ?? '';
+        document.getElementById('targetAlt').value = prof.targetAlt ?? '';
+        document.getElementById('speed').value = prof.speed ?? '';
+        document.getElementById('adiAngle').value = prof.adiAngle ?? 0;
+        document.getElementById('adiAngleValue').textContent = (prof.adiAngle??0)+' °';
+        document.getElementById('airportDistance').value = prof.airportDistance ?? '';
+    }
+    function getCurrentProfileId() {
+        return document.getElementById('profileSelect').value;
+    }
+
+    // --- СОБЫТИЯ И КНОПКИ ---
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- SETTINGS modal ---
+        const settingsBtn = document.getElementById('settingsBtn');
+        const modalBg = document.getElementById('modalBg');
+        const modal = document.getElementById('settingsModal');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        settingsBtn.onclick = ()=>{ modalBg.classList.add('active'); modal.classList.add('active'); };
+        modalBg.onclick = modalCloseBtn.onclick = ()=>{ modalBg.classList.remove('active'); modal.classList.remove('active'); };
+        document.getElementById('langSelect').onchange = (e)=>{
+            localStorage.setItem('pilot_lang', e.target.value);
+            setLang(e.target.value);
         };
 
-        // --- UTILITY FUNCTIONS ---
-        function convertToMeters(value, unit) {
-            if (unit === 'ft') return value * 0.3048;
-            return value;
-        }
+        // --- Профили ---
+        loadProfiles();
+        fillProfileOptions();
+        setFieldsFromProfile(getCurrentProfileId());
+        setLang(getLang());
 
-        function convertToMps(value, unit) {
-            switch (unit) {
-                case 'kts': return value * 0.514444;
-                case 'mph': return value * 0.44704;
-                case 'kmh': return value * 0.277778;
-                case 'mps': return value;
-                default: return value;
+        // Переключение профиля
+        document.getElementById('profileSelect').onchange = function() {
+            // Сохраняем старое значение в профиль
+            saveCurrentProfileData(window.lastProfileId||'custom');
+            setFieldsFromProfile(this.value);
+            fillProfileOptions();
+            window.lastProfileId = this.value;
+            calculate();
+        };
+        window.lastProfileId = getCurrentProfileId();
+
+        // Add profile
+        document.getElementById('addProfileBtn').onclick = function() {
+            const lang = getLang();
+            let name = prompt(LANGS[lang].newProfileName || "Profile name");
+            if (!name) return;
+            // сгенерить уникальный id
+            let baseId = name.toLowerCase().replace(/[^a-zа-яё0-9]+/gi,'-');
+            let id = baseId;
+            let i = 2;
+            while (profiles[id]) id = baseId + '-' + i++;
+            // создать копию текущих данных
+            profiles[id] = {
+                name: name,
+                currentAlt: document.getElementById('currentAlt').value,
+                targetAlt: document.getElementById('targetAlt').value,
+                speed: document.getElementById('speed').value,
+                adiAngle: parseInt(document.getElementById('adiAngle').value,10),
+                airportDistance: document.getElementById('airportDistance').value
+            };
+            saveUserProfiles();
+            fillProfileOptions();
+            document.getElementById('profileSelect').value = id;
+            fillProfileOptions();
+            window.lastProfileId = id;
+        };
+
+        // Delete profile
+        document.getElementById('deleteProfileBtn').onclick = function() {
+            const id = getCurrentProfileId();
+            if (!profiles[id] || builtInProfiles.find(p=>p.id===id)) return;
+            if (!confirm("Delete profile?")) return;
+            delete profiles[id];
+            saveUserProfiles();
+            fillProfileOptions();
+            document.getElementById('profileSelect').value = 'custom';
+            setFieldsFromProfile('custom');
+            window.lastProfileId = 'custom';
+            calculate();
+        };
+
+        // --- INPUTS ---
+        const inputs = ['currentAlt', 'targetAlt', 'currentAltUnit', 'targetAltUnit', 'speed', 'speedUnit', 'adiAngle', 'airportDistance', 'airportDistanceUnit'];
+        inputs.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('input', function() {
+                    saveCurrentProfileData(getCurrentProfileId());
+                    calculate();
+                });
+                element.addEventListener('change', function() {
+                    saveCurrentProfileData(getCurrentProfileId());
+                    calculate();
+                });
             }
+        });
+
+        // ADI slider: только int!
+        const adiSlider = document.getElementById('adiAngle');
+        const adiAngleValue = document.getElementById('adiAngleValue');
+        adiSlider.addEventListener('input', function() {
+            this.value = Math.round(this.value); // всегда целое значение
+            adiAngleValue.textContent = this.value + ' °';
+            saveCurrentProfileData(getCurrentProfileId());
+            calculate();
+        });
+
+        // Начальное сохранение
+        saveCurrentProfileData(getCurrentProfileId());
+        calculate();
+    });
+
+    // --- КАЛЬКУЛЯТОР (вырезка из предыдущей версии, ADI int) ---
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    function convertToMeters(value, unit) {
+        if (unit === 'ft') return value * 0.3048;
+        return value;
+    }
+    function convertToMps(value, unit) {
+        switch (unit) {
+            case 'kts': return value * 0.514444;
+            case 'mph': return value * 0.44704;
+            case 'kmh': return value * 0.277778;
+            case 'mps': return value;
+            default: return value;
         }
-
-        function convertDistanceToKm(value, unit) {
-             switch (unit) {
-                case 'km': return value;
-                case 'mi': return value * 1.609344;
-                case 'nmi': return value * 1.852;
-                default: return value;
-            }
+    }
+    function convertDistanceToKm(value, unit) {
+         switch (unit) {
+            case 'km': return value;
+            case 'mi': return value * 1.609344;
+            case 'nmi': return value * 1.852;
+            default: return value;
         }
+    }
+    function isValidNumber(value) {
+        return !isNaN(parseFloat(value)) && isFinite(value);
+    }
+    const calculate = debounce(function() {
+        const currentAlt = document.getElementById('currentAlt').value;
+        const targetAlt = document.getElementById('targetAlt').value;
+        const currentAltUnit = document.getElementById('currentAltUnit').value;
+        const targetAltUnit = document.getElementById('targetAltUnit').value;
+        const speed = document.getElementById('speed').value;
+        const speedUnit = document.getElementById('speedUnit').value;
+        const adiAngle = Math.round(parseInt(document.getElementById('adiAngle').value,10)||0);
+        const airportDistance = document.getElementById('airportDistance').value;
+        const airportDistanceUnit = document.getElementById('airportDistanceUnit').value;
 
-        function isValidNumber(value) {
-            return !isNaN(parseFloat(value)) && isFinite(value);
-        }
+        const isValidCurrentAlt = isValidNumber(currentAlt);
+        const isValidTargetAlt = isValidNumber(targetAlt);
+        const isValidSpeed = isValidNumber(speed);
+        const isValidAdiAngle = isValidNumber(adiAngle);
+        const isValidAirportDistance = isValidNumber(airportDistance);
 
-        // --- CALCULATION FUNCTION ---
-        const calculate = debounce(function() {
-            const currentAlt = document.getElementById('currentAlt').value;
-            const targetAlt = document.getElementById('targetAlt').value;
-            const currentAltUnit = document.getElementById('currentAltUnit').value;
-            const targetAltUnit = document.getElementById('targetAltUnit').value;
-            const speed = document.getElementById('speed').value;
-            const speedUnit = document.getElementById('speedUnit').value;
-            const adiAngle = document.getElementById('adiAngle').value;
-            const airportDistance = document.getElementById('airportDistance').value;
-            const airportDistanceUnit = document.getElementById('airportDistanceUnit').value;
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.style.opacity = '0';
+        resultsDiv.style.transform = 'translateY(20px)';
 
-            // --- INPUT VALIDATION ---
-            const isValidCurrentAlt = isValidNumber(currentAlt);
-            const isValidTargetAlt = isValidNumber(targetAlt);
-            const isValidSpeed = isValidNumber(speed);
-            const isValidAdiAngle = isValidNumber(adiAngle);
-            const isValidAirportDistance = isValidNumber(airportDistance);
-
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.style.opacity = '0';
-            resultsDiv.style.transform = 'translateY(20px)';
-
-            setTimeout(() => {
-                if (!isValidCurrentAlt || !isValidTargetAlt || !isValidSpeed || !isValidAdiAngle) {
-                    resultsDiv.innerHTML = `
-                        <div class="empty-state">
-                            <div class="icon">📊</div>
-                            <div class="text">Fill in all fields</div>
-                            <div class="subtext">Calculation is performed automatically</div>
-                        </div>
-                    `;
-                    resultsDiv.style.opacity = '1';
-                    resultsDiv.style.transform = 'translateY(0)';
-                    return;
-                }
-
-                // --- CONVERSIONS ---
-                const currentAltM = convertToMeters(parseFloat(currentAlt), currentAltUnit);
-                const targetAltM = convertToMeters(parseFloat(targetAlt), targetAltUnit);
-                const speedMps = convertToMps(parseFloat(speed), speedUnit);
-                const angle = parseFloat(adiAngle);
-
-                // --- CALCULATIONS ---
-                const altDiff = targetAltM - currentAltM;
-                const verticalSpeedMps = speedMps * Math.sin(angle * Math.PI / 180);
-                const verticalSpeedFpm = verticalSpeedMps * 196.85;
-                const timeMinutes = Math.abs(altDiff / verticalSpeedMps / 60);
-                const horizontalSpeedMps = speedMps * Math.cos(angle * Math.PI / 180);
-                const distanceKm = (horizontalSpeedMps * timeMinutes * 60) / 1000;
-
-                // --- AIRPORT REACHABILITY STATUS ---
-                let airportStatusHtml = '';
-                if (isValidAirportDistance) {
-                    const airportDistanceConverted = convertDistanceToKm(parseFloat(airportDistance), airportDistanceUnit);
-                    const canReachAirport = distanceKm <= airportDistanceConverted;
-
-                    airportStatusHtml = `
-                        <div class="airport-status ${canReachAirport ? 'success' : 'danger'}">
-                            <span class="status-indicator">${canReachAirport ? '✅' : '❌'}</span>
-                            ${canReachAirport ? 'Can reach airport in time' : 'Cannot reach airport - insufficient distance'}
-                        </div>
-                    `;
-                }
-
-                // --- POPULATE RESULTS ---
-                let horizontalDistanceText = `${distanceKm.toFixed(1)} km`;
-                if (airportDistanceUnit === 'mi') {
-                    horizontalDistanceText = `${(distanceKm * 0.621371).toFixed(1)} mi`;
-                } else if (airportDistanceUnit === 'nmi') {
-                     horizontalDistanceText = `${(distanceKm * 0.539957).toFixed(1)} nmi`;
-                }
-
+        setTimeout(() => {
+            if (!isValidCurrentAlt || !isValidTargetAlt || !isValidSpeed || !isValidAdiAngle) {
                 resultsDiv.innerHTML = `
-                    ${airportStatusHtml}
-                    <div class="result-card" style="--order: 1;">
-                        <div class="result-label">Vertical Speed</div>
-                        <div class="result-value">
-                            ${verticalSpeedMps.toFixed(2)} m/s
-                            <span class="result-subtext">(${verticalSpeedFpm.toFixed(0)} ft/min)</span>
-                        </div>
-                    </div>
-                    <div class="result-card blue" style="--order: 2;">
-                        <div class="result-label">Time to Reach Altitude</div>
-                        <div class="result-value">${timeMinutes.toFixed(1)} minutes</div>
-                    </div>
-                    <div class="result-card purple" style="--order: 3;">
-                        <div class="result-label">Horizontal Distance</div>
-                        <div class="result-value">${horizontalDistanceText}</div>
+                    <div class="empty-state">
+                        <div class="icon">📊</div>
+                        <div class="text" id="fill-fields-text">${LANGS[getLang()].fillFields}</div>
+                        <div class="subtext" id="calc-auto-text">${LANGS[getLang()].calcAuto}</div>
                     </div>
                 `;
                 resultsDiv.style.opacity = '1';
                 resultsDiv.style.transform = 'translateY(0)';
-            }, 350);
-        }, 200); // Debounce delay of 200ms
+                return;
+            }
+            const currentAltM = convertToMeters(parseFloat(currentAlt), currentAltUnit);
+            const targetAltM = convertToMeters(parseFloat(targetAlt), targetAltUnit);
+            const speedMps = convertToMps(parseFloat(speed), speedUnit);
+            const angle = adiAngle;
 
-        // --- EVENT LISTENERS AND INITIALIZATION ---
-        document.addEventListener('DOMContentLoaded', function() {
-            const inputs = ['currentAlt', 'targetAlt', 'currentAltUnit', 'targetAltUnit', 'speed', 'speedUnit', 'adiAngle', 'airportDistance', 'airportDistanceUnit'];
-            const adiSlider = document.getElementById('adiAngle');
-            const adiAngleValue = document.getElementById('adiAngleValue');
-            const profileSelect = document.getElementById('profileSelect');
+            const altDiff = targetAltM - currentAltM;
+            const verticalSpeedMps = speedMps * Math.sin(angle * Math.PI / 180);
+            const verticalSpeedFpm = verticalSpeedMps * 196.85;
+            const timeMinutes = Math.abs(altDiff / verticalSpeedMps / 60);
+            const horizontalSpeedMps = speedMps * Math.cos(angle * Math.PI / 180);
+            const distanceKm = (horizontalSpeedMps * timeMinutes * 60) / 1000;
 
-            // --- GENERAL INPUT LISTENERS ---
-            inputs.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.addEventListener('input', calculate);
-                    element.addEventListener('change', calculate);
-                }
-            });
+            let airportStatusHtml = '';
+            if (isValidAirportDistance) {
+                const airportDistanceConverted = convertDistanceToKm(parseFloat(airportDistance), airportDistanceUnit);
+                const canReachAirport = distanceKm <= airportDistanceConverted;
+                airportStatusHtml = `
+                    <div class="airport-status ${canReachAirport ? 'success' : 'danger'}">
+                        <span class="status-indicator">${canReachAirport ? '✅' : '❌'}</span>
+                        ${canReachAirport ? 'Can reach airport in time' : 'Cannot reach airport - insufficient distance'}
+                    </div>
+                `;
+            }
+            let horizontalDistanceText = `${distanceKm.toFixed(1)} km`;
+            if (airportDistanceUnit === 'mi') {
+                horizontalDistanceText = `${(distanceKm * 0.621371).toFixed(1)} mi`;
+            } else if (airportDistanceUnit === 'nmi') {
+                 horizontalDistanceText = `${(distanceKm * 0.539957).toFixed(1)} nmi`;
+            }
 
-            // --- ADI SLIDER LISTENER ---
-            adiSlider.addEventListener('input', function() {
-                adiAngleValue.textContent = `${this.value} °`;
-                calculate();
-            });
-
-            // --- PROFILE SELECTION ---
-            profileSelect.addEventListener('change', function() {
-                const selectedProfile = this.value;
-                if (selectedProfile === 'custom') {
-                    inputs.forEach(id => {
-                        const element = document.getElementById(id);
-                        if (element && element.type !== 'select-one') {
-                            element.value = '';
-                        }
-                    });
-                    document.getElementById('adiAngle').value = 0;
-                    adiAngleValue.textContent = '0.0 °';
-                    calculate();
-                } else if (profiles[selectedProfile]) {
-                    const profileData = profiles[selectedProfile];
-                    for (const key in profileData) {
-                        const element = document.getElementById(key);
-                        if (element) {
-                            if (element.type === 'number' || element.type === 'text') {
-                                element.value = profileData[key] !== null ? profileData[key] : '';
-                            } else if (element.tagName === 'INPUT' && element.type === 'range') {
-                                element.value = profileData[key];
-                                adiAngleValue.textContent = `${profileData[key]} °`;
-                            }
-                        }
-                    }
-                    calculate();
-                }
-            });
-        });
+            resultsDiv.innerHTML = `
+                ${airportStatusHtml}
+                <div class="result-card" style="--order: 1;">
+                    <div class="result-label">Vertical Speed</div>
+                    <div class="result-value">
+                        ${verticalSpeedMps.toFixed(2)} m/s
+                        <span class="result-subtext">(${verticalSpeedFpm.toFixed(0)} ft/min)</span>
+                    </div>
+                </div>
+                <div class="result-card blue" style="--order: 2;">
+                    <div class="result-label">Time to Reach Altitude</div>
+                    <div class="result-value">${timeMinutes.toFixed(1)} minutes</div>
+                </div>
+                <div class="result-card purple" style="--order: 3;">
+                    <div class="result-label">Horizontal Distance</div>
+                    <div class="result-value">${horizontalDistanceText}</div>
+                </div>
+            `;
+            resultsDiv.style.opacity = '1';
+            resultsDiv.style.transform = 'translateY(0)';
+        }, 350);
+    }, 200);
     </script>
 </body>
 </html>
