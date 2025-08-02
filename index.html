@@ -14,24 +14,40 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #1e3a8a, #1e40af, #3730a3);
-            font-family: 'Courier New', monospace;
-            padding: 20px;
-            color: white;
+            background: linear-gradient(145deg, #0a1326, #1a3b8c, #2a2a72);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+            color: #f1f5f9;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 900px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .main-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(16px);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: none;
+            animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .main-card::-webkit-scrollbar {
+            display: none;
         }
 
         /* Header Styles */
@@ -39,120 +55,166 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: slideIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
         }
 
         .header-icon {
-            background: rgba(59, 130, 246, 0.2);
-            padding: 10px;
-            border-radius: 12px;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
+            padding: 8px;
+            border-radius: 8px;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+        }
+
+        .header-icon:hover {
+            transform: rotate(360deg) scale(1.1);
+            box-shadow: 0 3px 12px rgba(59, 130, 246, 0.4);
         }
 
         .header-icon svg {
-            width: 24px;
-            height: 24px;
-            fill: #93c5fd;
+            width: 20px;
+            height: 20px;
+            fill: #ffffff;
         }
 
         .header h1 {
-            font-size: 1.6rem;
-            font-weight: bold;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(90deg, #3b82f6, #a5b4fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .header p {
-            color: #bfdbfe;
-            margin-top: 2px;
-            font-size: 0.9rem;
+            color: #a1b2c3;
+            margin-top: 4px;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
         }
 
         /* Content & Sections Styles */
         .content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            gap: 16px;
+            height: calc(100% - 48px);
         }
 
         .input-section, .results-section {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 16px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            animation: slideIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+        }
+
+        .input-section:hover, .results-section:hover {
+            background: rgba(255, 255, 255, 0.14);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
 
         .section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
+            background: linear-gradient(90deg, #3b82f6, #93c5fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .section-title svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
+            width: 16px;
+            height: 16px;
+            fill: #60a5fa;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-title:hover svg {
+            transform: rotate(180deg);
         }
 
         /* Input Styles */
         .input-group {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
+            opacity: 0;
+            animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: calc(0.7s + var(--order) * 0.1s);
         }
 
         .input-label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 500;
-            color: #bfdbfe;
-            margin-bottom: 8px;
+            color: #cbd5e1;
+            margin-bottom: 6px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .input-group:hover .input-label {
+            color: #93c5fd;
+            transform: translateY(-1px);
         }
 
         .input-row {
             display: flex;
-            gap: 10px;
-            align-items: center; /* Vertically center items in the input-row */
+            gap: 8px;
+            align-items: center;
         }
 
         .input-field {
             flex: 1;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 10px 12px;
-            color: white;
-            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: #f1f5f9;
+            font-size: 0.8rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .input-field::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.3);
         }
 
         .input-field:focus {
             outline: none;
-            border-color: #60a5fa;
-            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+            background: rgba(255, 255, 255, 0.18);
+            transform: scale(1.02);
         }
 
         .unit-select {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 10px;
-            color: white;
-            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 6px;
+            padding: 8px;
+            color: #f1f5f9;
+            font-size: 0.8rem;
             min-width: 70px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .unit-select:focus {
             outline: none;
-            border-color: #60a5fa;
-            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+            transform: scale(1.02);
         }
 
         .unit-select option {
             background: #1e40af;
-            color: white;
-            padding: 5px;
+            color: #f1f5f9;
         }
 
         /* ADI Slider Styles */
@@ -160,127 +222,211 @@
             width: 100%;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .adi-slider {
             width: 100%;
-            -webkit-appearance: none; /* Override default appearance */
+            -webkit-appearance: none;
             appearance: none;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
+            height: 6px;
+            background: linear-gradient(to right, #ef4444, #ffffff, #22c55e);
+            border-radius: 3px;
             margin-bottom: 8px;
+            transition: background 0.4s ease;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .adi-slider:hover {
+            background: linear-gradient(to right, #dc2626, #e2e8f0, #16a34a);
         }
 
         .adi-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 20px;
-            height: 20px;
-            background: #60a5fa;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
             border-radius: 50%;
-            cursor: grab; /* Indicate grab cursor */
+            cursor: grab;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .adi-slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            background: #60a5fa;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
             border-radius: 50%;
-            cursor: grab; /* Indicate grab cursor */
+            cursor: grab;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .adi-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 5px 16px rgba(59, 130, 246, 0.5);
+        }
+
+        .adi-slider::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 5px 16px rgba(59, 130, 246, 0.5);
         }
 
         .adi-slider:active::-webkit-slider-thumb {
             cursor: grabbing;
+            transform: scale(0.9);
         }
 
         .adi-slider:active::-moz-range-thumb {
             cursor: grabbing;
+            transform: scale(0.9);
         }
 
         .adi-slider-value {
             text-align: center;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, #3b82f6, #a5b4fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: transform 0.3s ease;
         }
 
-        /* Tooltip Styles - REMOVED */
+        .adi-slider-container:hover .adi-slider-value {
+            transform: scale(1.05);
+        }
 
         /* Result Card Styles */
         .result-card {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.08));
+            border: 1px solid rgba(34, 197, 94, 0.35);
             border-radius: 8px;
-            padding: 14px;
+            padding: 12px;
             margin-bottom: 12px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: calc(0.9s + var(--order) * 0.1s);
+        }
+
+        .result-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.12));
         }
 
         .result-card.blue {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.08));
+            border-color: rgba(59, 130, 246, 0.35);
+        }
+
+        .result-card.blue:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.12));
         }
 
         .result-card.purple {
-            background: rgba(147, 51, 234, 0.1);
-            border-color: rgba(147, 51, 234, 0.3);
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.15), rgba(147, 51, 234, 0.08));
+            border-color: rgba(147, 51, 234, 0.35);
+        }
+
+        .result-card.purple:hover {
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(147, 51, 234, 0.12));
         }
 
         .result-card.red {
-            background: rgba(239, 68, 68, 0.1);
-            border-color: rgba(239, 68, 68, 0.3);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.08));
+            border-color: rgba(239, 68, 68, 0.35);
+        }
+
+        .result-card.red:hover {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.12));
         }
 
         .result-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 5px;
+            font-size: 0.8rem;
+            color: #a1b2c3;
+            margin-bottom: 4px;
+            letter-spacing: 0.03em;
+            transition: color 0.3s ease;
+        }
+
+        .result-card:hover .result-label {
+            color: #cbd5e1;
         }
 
         .result-value {
-            font-size: 1.3rem;
-            font-weight: bold;
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            background: linear-gradient(90deg, #3b82f6, #a5b4fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .result-subtext {
-            font-size: 0.9rem;
-            font-weight: normal;
-            color: rgba(255, 255, 255, 0.7);
-            margin-left: 10px;
+            font-size: 0.85rem;
+            color: #a1b2c3;
         }
 
         /* Empty State & Notes Styles */
         .empty-state {
             text-align: center;
-            padding: 40px 0;
+            padding: 32px 0;
+            opacity: 0;
+            animation: fadeIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.7s forwards;
         }
 
         .empty-state .icon {
-            color: rgba(255, 255, 255, 0.3);
-            margin-bottom: 10px;
-            font-size: 3rem; /* Make the icon bigger */
+            color: rgba(255, 255, 255, 0.25);
+            margin-bottom: 8px;
+            font-size: 2.5rem;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .empty-state:hover .icon {
+            transform: scale(1.2) rotate(10deg);
         }
 
         .empty-state .text {
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 5px;
+            color: #e2e8f0;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: linear-gradient(90deg, #3b82f6, #93c5fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .empty-state .subtext {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            color: #64748b;
         }
 
         .notes {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.06));
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 16px;
+            opacity: 0;
+            animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.9s forwards;
         }
 
         .notes h4 {
             font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 10px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #3b82f6, #a5b4fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .notes ul {
@@ -289,8 +435,23 @@
 
         .notes li {
             font-size: 0.8rem;
-            color: #bfdbfe;
-            margin-bottom: 5px;
+            color: #a1b2c3;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 16px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .notes li:hover {
+            color: #cbd5e1;
+            transform: translateX(3px);
+        }
+
+        .notes li::before {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="%233b82f6"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>');
+            position: absolute;
+            left: 0;
+            top: 2px;
         }
 
         /* Airport Status Styles */
@@ -298,80 +459,144 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-weight: bold;
-            font-size: 1rem;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.7s forwards;
+        }
+
+        .airport-status:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
         }
 
         .airport-status.success {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.08));
+            border: 1px solid rgba(34, 197, 94, 0.35);
             color: #22c55e;
         }
 
         .airport-status.danger {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.08));
+            border: 1px solid rgba(239, 68, 68, 0.35);
             color: #ef4444;
         }
 
         .status-indicator {
             font-size: 1.2rem;
-            margin-right: 10px;
+            margin-right: 8px;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .airport-status:hover .status-indicator {
+            transform: scale(1.3);
         }
 
         /* Profile Select Styles */
         .profile-select {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 10px;
-            color: white;
-            font-size: 0.9rem;
-            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 6px;
+            padding: 8px;
+            color: #f1f5f9;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
             width: 100%;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .profile-select:focus {
             outline: none;
-            border-color: #60a5fa;
-            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+            transform: scale(1.02);
         }
 
         .profile-select option {
             background: #1e40af;
-            color: white;
-            padding: 5px;
+            color: #f1f5f9;
         }
 
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .content {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 12px;
+                height: auto;
             }
 
             .main-card {
-                padding: 20px;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 6px;
+            }
+
+            .input-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .input-field, .unit-select {
+                width: 100%;
             }
 
             .header h1 {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
             }
 
-            /* Adjustments for smaller screens */
-            .input-row {
-                flex-direction: column;  /* Stack input and select on small screens */
-                align-items: flex-start; /* Align items to the start */
+            .result-value {
+                font-size: 1rem;
             }
-            .input-field, .unit-select {
-                width: 100%; /* Full width on small screens */
+        }
+
+        @media (max-width: 480px) {
+            .main-card {
+                padding: 10px;
+            }
+
+            .header-icon svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .section-title {
+                font-size: 0.9rem;
+            }
+
+            .result-value {
+                font-size: 0.9rem;
+            }
+
+            .empty-state .icon {
+                font-size: 2rem;
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body lang="en">
     <div class="container">
@@ -398,7 +623,7 @@
                     </h3>
 
                     <!-- Profile Selection -->
-                    <div class="input-group">
+                    <div class="input-group" style="--order: 1;">
                         <label class="input-label">Profile</label>
                         <select id="profileSelect" class="profile-select">
                             <option value="custom">Custom</option>
@@ -408,8 +633,7 @@
                         </select>
                     </div>
 
-
-                    <div class="input-group">
+                    <div class="input-group" style="--order: 2;">
                         <label class="input-label">Current Altitude</label>
                         <div class="input-row">
                             <input type="number" id="currentAlt" class="input-field" placeholder="Enter altitude">
@@ -420,7 +644,7 @@
                         </div>
                     </div>
 
-                    <div class="input-group">
+                    <div class="input-group" style="--order: 3;">
                         <label class="input-label">Target Altitude</label>
                         <div class="input-row">
                             <input type="number" id="targetAlt" class="input-field" placeholder="Enter altitude">
@@ -431,7 +655,7 @@
                         </div>
                     </div>
 
-                    <div class="input-group">
+                    <div class="input-group" style="--order: 4;">
                         <label class="input-label">Speed</label>
                         <div class="input-row">
                             <input type="number" id="speed" class="input-field" placeholder="Enter speed">
@@ -444,15 +668,15 @@
                         </div>
                     </div>
 
-                    <div class="input-group">
+                    <div class="input-group" style="--order: 5;">
                         <label class="input-label">ADI Angle (-15° to +15°)</label>
                         <div class="adi-slider-container">
-                            <div class="adi-slider-value" id="adiAngleValue">0.0 °</div>
+                            <div class="adi-slider-value" id="adiAngleValue">0 °</div>
                             <input type="range" id="adiAngle" class="adi-slider" min="-15" max="15" step="0.1" value="0">
                         </div>
                     </div>
 
-                     <div class="input-group">
+                    <div class="input-group" style="--order: 6;">
                         <label class="input-label">Distance to Airport</label>
                         <div class="input-row">
                             <input type="number" id="airportDistance" class="input-field" placeholder="Enter distance">
@@ -479,10 +703,10 @@
                     <div class="notes">
                         <h4>Notes:</h4>
                         <ul>
-                            <li>• Positive ADI angle = climb</li>
-                            <li>• Negative ADI angle = descent</li>
-                            <li>• Calculations are approximate, consider weather conditions</li>
-                            <li>• The value of the Horizontal Distance is equal to the optimal distance to descend from the airport</li>
+                            <li>Positive ADI angle = climb</li>
+                            <li>Negative ADI angle = descent</li>
+                            <li>Calculations are approximate, consider weather conditions</li>
+                            <li>The value of the Horizontal Distance is equal to the optimal distance to descend from the airport</li>
                         </ul>
                     </div>
                 </div>
@@ -491,27 +715,40 @@
     </div>
 
     <script>
+        // Debounce function to limit rapid calculations
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
         // --- PROFILE DATA ---
         const profiles = {
             approach: {
                 currentAlt: null,
                 targetAlt: 0,
                 speed: null,
-                adiAngle: -3, // Typical descent angle
+                adiAngle: -3,
                 airportDistance: null
             },
             "short-field": {
                 currentAlt: null,
                 targetAlt: 0,
                 speed: null,
-                adiAngle: -4, // steeper descent
+                adiAngle: -4,
                 airportDistance: null
             },
             "climb-out": {
                 currentAlt: 0,
                 targetAlt: null,
                 speed: null,
-                adiAngle: 10, // aggressive climb
+                adiAngle: 10,
                 airportDistance: null
             },
         };
@@ -545,9 +782,8 @@
             return !isNaN(parseFloat(value)) && isFinite(value);
         }
 
-
         // --- CALCULATION FUNCTION ---
-        function calculate() {
+        const calculate = debounce(function() {
             const currentAlt = document.getElementById('currentAlt').value;
             const targetAlt = document.getElementById('targetAlt').value;
             const currentAltUnit = document.getElementById('currentAltUnit').value;
@@ -565,75 +801,82 @@
             const isValidAdiAngle = isValidNumber(adiAngle);
             const isValidAirportDistance = isValidNumber(airportDistance);
 
-            if (!isValidCurrentAlt || !isValidTargetAlt || !isValidSpeed || !isValidAdiAngle) {
-                document.getElementById('results').innerHTML = `
-                    <div class="empty-state">
-                        <div class="icon">📊</div>
-                        <div class="text">Fill in all fields</div>
-                        <div class="subtext">Calculation is performed automatically</div>
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.style.opacity = '0';
+            resultsDiv.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                if (!isValidCurrentAlt || !isValidTargetAlt || !isValidSpeed || !isValidAdiAngle) {
+                    resultsDiv.innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">📊</div>
+                            <div class="text">Fill in all fields</div>
+                            <div class="subtext">Calculation is performed automatically</div>
+                        </div>
+                    `;
+                    resultsDiv.style.opacity = '1';
+                    resultsDiv.style.transform = 'translateY(0)';
+                    return;
+                }
+
+                // --- CONVERSIONS ---
+                const currentAltM = convertToMeters(parseFloat(currentAlt), currentAltUnit);
+                const targetAltM = convertToMeters(parseFloat(targetAlt), targetAltUnit);
+                const speedMps = convertToMps(parseFloat(speed), speedUnit);
+                const angle = parseFloat(adiAngle);
+
+                // --- CALCULATIONS ---
+                const altDiff = targetAltM - currentAltM;
+                const verticalSpeedMps = speedMps * Math.sin(angle * Math.PI / 180);
+                const verticalSpeedFpm = verticalSpeedMps * 196.85;
+                const timeMinutes = Math.abs(altDiff / verticalSpeedMps / 60);
+                const horizontalSpeedMps = speedMps * Math.cos(angle * Math.PI / 180);
+                const distanceKm = (horizontalSpeedMps * timeMinutes * 60) / 1000;
+
+                // --- AIRPORT REACHABILITY STATUS ---
+                let airportStatusHtml = '';
+                if (isValidAirportDistance) {
+                    const airportDistanceConverted = convertDistanceToKm(parseFloat(airportDistance), airportDistanceUnit);
+                    const canReachAirport = distanceKm <= airportDistanceConverted;
+
+                    airportStatusHtml = `
+                        <div class="airport-status ${canReachAirport ? 'success' : 'danger'}">
+                            <span class="status-indicator">${canReachAirport ? '✅' : '❌'}</span>
+                            ${canReachAirport ? 'Can reach airport in time' : 'Cannot reach airport - insufficient distance'}
+                        </div>
+                    `;
+                }
+
+                // --- POPULATE RESULTS ---
+                let horizontalDistanceText = `${distanceKm.toFixed(1)} km`;
+                if (airportDistanceUnit === 'mi') {
+                    horizontalDistanceText = `${(distanceKm * 0.621371).toFixed(1)} mi`;
+                } else if (airportDistanceUnit === 'nmi') {
+                     horizontalDistanceText = `${(distanceKm * 0.539957).toFixed(1)} nmi`;
+                }
+
+                resultsDiv.innerHTML = `
+                    ${airportStatusHtml}
+                    <div class="result-card" style="--order: 1;">
+                        <div class="result-label">Vertical Speed</div>
+                        <div class="result-value">
+                            ${verticalSpeedMps.toFixed(2)} m/s
+                            <span class="result-subtext">(${verticalSpeedFpm.toFixed(0)} ft/min)</span>
+                        </div>
+                    </div>
+                    <div class="result-card blue" style="--order: 2;">
+                        <div class="result-label">Time to Reach Altitude</div>
+                        <div class="result-value">${timeMinutes.toFixed(1)} minutes</div>
+                    </div>
+                    <div class="result-card purple" style="--order: 3;">
+                        <div class="result-label">Horizontal Distance</div>
+                        <div class="result-value">${horizontalDistanceText}</div>
                     </div>
                 `;
-                return;
-            }
-
-            // --- CONVERSIONS ---
-            const currentAltM = convertToMeters(parseFloat(currentAlt), currentAltUnit);
-            const targetAltM = convertToMeters(parseFloat(targetAlt), targetAltUnit);
-            const speedMps = convertToMps(parseFloat(speed), speedUnit);
-            const angle = parseFloat(adiAngle);
-
-            // --- CALCULATIONS ---
-            const altDiff = targetAltM - currentAltM;
-            const verticalSpeedMps = speedMps * Math.sin(angle * Math.PI / 180);
-            const verticalSpeedFpm = verticalSpeedMps * 196.85;
-            const timeMinutes = Math.abs(altDiff / verticalSpeedMps / 60);
-            const horizontalSpeedMps = speedMps * Math.cos(angle * Math.PI / 180);
-            const distanceKm = (horizontalSpeedMps * timeMinutes * 60) / 1000;
-
-            // --- AIRPORT REACHABILITY STATUS ---
-            let airportStatusHtml = '';
-            if (isValidAirportDistance) {
-                const airportDistanceConverted = convertDistanceToKm(parseFloat(airportDistance), airportDistanceUnit);
-
-                const canReachAirport = distanceKm <= airportDistanceConverted; // Compare with converted value
-
-                airportStatusHtml = `
-                    <div class="airport-status ${canReachAirport ? 'success' : 'danger'}">
-                        <span class="status-indicator">${canReachAirport ? '✅' : '❌'}</span>
-                        ${canReachAirport ? 'Can reach airport in time' : 'Cannot reach airport - insufficient distance'}
-                    </div>
-                `;
-            }
-
-            // --- POPULATE RESULTS ---
-            let horizontalDistanceText = `${distanceKm.toFixed(1)} km`; // Default to km
-            if (airportDistanceUnit === 'mi') {
-                horizontalDistanceText = `${(distanceKm * 0.621371).toFixed(1)} mi`;
-            } else if (airportDistanceUnit === 'nmi') {
-                 horizontalDistanceText = `${(distanceKm * 0.539957).toFixed(1)} nmi`;
-            }
-
-            document.getElementById('results').innerHTML = `
-                ${airportStatusHtml}
-                <div class="result-card">
-                    <div class="result-label">Vertical Speed</div>
-                    <div class="result-value">
-                        ${verticalSpeedMps.toFixed(2)} m/s
-                        <span class="result-subtext">(${verticalSpeedFpm.toFixed(0)} ft/min)</span>
-                    </div>
-                </div>
-
-                <div class="result-card blue">
-                    <div class="result-label">Time to Reach Altitude</div>
-                    <div class="result-value">${timeMinutes.toFixed(1)} minutes</div>
-                </div>
-
-                <div class="result-card purple">
-                    <div class="result-label">Horizontal Distance</div>
-                    <div class="result-value">${horizontalDistanceText}</div>
-                </div>
-            `;
-        }
+                resultsDiv.style.opacity = '1';
+                resultsDiv.style.transform = 'translateY(0)';
+            }, 350);
+        }, 200); // Debounce delay of 200ms
 
         // --- EVENT LISTENERS AND INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', function() {
@@ -653,41 +896,37 @@
 
             // --- ADI SLIDER LISTENER ---
             adiSlider.addEventListener('input', function() {
-                adiAngleValue.textContent = `${this.value} °`; // Update displayed value
-                calculate(); // Recalculate on slider change
+                adiAngleValue.textContent = `${this.value} °`;
+                calculate();
             });
 
             // --- PROFILE SELECTION ---
             profileSelect.addEventListener('change', function() {
                 const selectedProfile = this.value;
                 if (selectedProfile === 'custom') {
-                    // Clear all fields or do nothing
                     inputs.forEach(id => {
                         const element = document.getElementById(id);
                         if (element && element.type !== 'select-one') {
-                            element.value = '';  // Clear all input fields
+                            element.value = '';
                         }
                     });
-                    document.getElementById('adiAngle').value = 0;  // Reset slider
+                    document.getElementById('adiAngle').value = 0;
                     adiAngleValue.textContent = '0.0 °';
                     calculate();
                 } else if (profiles[selectedProfile]) {
                     const profileData = profiles[selectedProfile];
-                    // Set fields from the selected profile
                     for (const key in profileData) {
                         const element = document.getElementById(key);
                         if (element) {
-                            if (element.type === 'number' || element.type === 'text') { // Handle number and text input types
-                                element.value = profileData[key] !== null ? profileData[key] : ''; // Set values if not null
+                            if (element.type === 'number' || element.type === 'text') {
+                                element.value = profileData[key] !== null ? profileData[key] : '';
                             } else if (element.tagName === 'INPUT' && element.type === 'range') {
-                                element.value = profileData[key]; // For the slider
+                                element.value = profileData[key];
                                 adiAngleValue.textContent = `${profileData[key]} °`;
-                            } else if (element.tagName === 'SELECT') {
-                                // No direct assignment for selects.  Consider if needed later.
                             }
                         }
                     }
-                    calculate(); // Recalculate with new profile data
+                    calculate();
                 }
             });
         });
