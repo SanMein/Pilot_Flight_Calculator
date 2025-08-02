@@ -1,7 +1,61 @@
-# I would like to present to you my mini-project for pilots, which makes it easier to understand the descent and increase in altitude - Pilot Flight Calculator
-*What is this project?*
-- Quite simple and intuitive to use mini-site, in which you can easily and simply understand what and how to do here.
-- You can set up measurement systems yourself - In speed: kts, mph, km / h, m / s; In altitude: ft, m; In distance: km, mi, nmi. This makes the site ideally convenient.
-- The functionality of the page is as follows: Enter the current altitude and the required one, then enter the speed and angle according to ADI (positive or negative value) using the slider, and you are given three results: Approximate vertical speed of descent or increase in altitude, Time to overcome to the required altitude and Horizontal distance that will be overcome to the point of the required altitude.
-- Each calculation is done automatically and immediately, so you don't have to click on the "calculate" button or anything like that.
-- There are already existing "Profiles": Custom (for your own customization), Standard Approach (for a realistic approach, which is specified according to international standards), Short Field Landing (for fast and short flights (preferably not on jet aircraft)) and Climb Out (for takeoff of any international aircraft).
+# Pilot Flight Calculator
+A multi-purpose calculator for the Roblox game "Aeronautica": plan approaches, estimate speeds, distances, and more.
+
+## Features
+- Calculate required descent rate, time, and distance for approach
+- Supports different units (meters, feet, knots, km/h, mph)
+- Quick profile presets for typical flight scenarios
+- Responsive and modern UI
+- No installation required — works in any browser
+
+## How to Use
+1. Enter your initial and target altitudes.
+2. Set your ground speed and desired ADI angle.
+3. Choose a profile or manually adjust parameters.
+4. Get instant results for rate of descent, time, and required distance.
+5. The calculator will show if you have enough distance for a safe approach.
+
+## Demo
+
+![Screenshot](https://cdn.discordapp.com/attachments/1349365797515956225/1401101503217012818/image.png?ex=688f0cf5&is=688dbb75&hm=8f422562c434169b62b4e536a8ffc72e04c05ea90799e179335d311c7f262d72&)
+
+## Notes
+- "Positive ADI angle" means climb; "Negative ADI angle" means descend.
+- All calculations are for simulation and educational purposes.
+
+## Contributing
+Contributions are welcome! Open an issue or submit a pull request.
+
+## License
+MIT License
+
+---
+
+# Pilot Flight Calculator (Русский)
+Многофункциональный калькулятор для игры Roblox "Aeronautica": расчёт захода на посадку, скоростей, расстояния и другое.
+
+## Возможности
+- Расчёт необходимой вертикальной скорости, времени и дистанции для захода
+- Поддержка разных единиц измерения (метры, футы, узлы, км/ч, мили/ч)
+- Быстрые пресеты для типовых сценариев полёта
+- Современный адаптивный интерфейс
+- Работает прямо в браузере, не требует установки
+
+## Как пользоваться
+1. Введите начальную и целевую высоту.
+2. Укажите скорость и желаемый угол ADI.
+3. Выберите профиль или настройте параметры вручную.
+4. Сразу увидите результаты: вертикальная скорость, время и нужная дистанция.
+5. Калькулятор покажет, хватает ли дистанции для безопасного захода.
+
+## Скриншот
+
+![Скриншот](https://cdn.discordapp.com/attachments/1349365797515956225/1401101503217012818/image.png?ex=688f0cf5&is=688dbb75&hm=8f422562c434169b62b4e536a8ffc72e04c05ea90799e179335d311c7f262d72&)
+
+## Примечания
+- Положительный угол ADI — набор высоты; отрицательный — снижение.
+- Все расчёты предназначены для симуляции и обучения.
+## Вклад
+Вклад приветствуется! Открывай issue или делай pull request.
+## Лицензия
+MIT License
