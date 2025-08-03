@@ -17,7 +17,7 @@ A multi-purpose calculator for the Roblox game "Aeronautica": plan approaches, e
 
 ## Demo
 
-![Screenshot](https://cdn.discordapp.com/attachments/1349365797515956225/1401466531136667791/image.png?ex=689060eb&is=688f0f6b&hm=ff8528b1a7339e81bc8e95aa450735ff2b3ffa04f0254f28e150358d4d7f9ba3&)
+![Screenshot](https://cdn.discordapp.com/attachments/1349365797515956225/1401466844723941447/image.png?ex=68906135&is=688f0fb5&hm=61aae0641f2289957364fafb5047e8f77ac059a90c090d435f7fce44b2231750&)
 
 ## Notes
 - "Positive ADI angle" means climb; "Negative ADI angle" means descend.
