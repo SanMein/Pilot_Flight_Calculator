@@ -1,0 +1,51 @@
+/* Анимация для результатов расчёта */
+.animate-results {
+    animation: fadeInUp 0.5s ease-in-out forwards;
+    will-change: opacity, transform;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Анимация для result-card */
+.result-card {
+    animation: slideIn 0.5s ease-in-out forwards;
+    animation-delay: calc(var(--order) * 0.1s);
+    will-change: opacity, transform;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Анимация для airport-status */
+.airport-status {
+    animation: popIn 0.5s ease-in-out forwards;
+    will-change: opacity, transform;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
