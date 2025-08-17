@@ -17,7 +17,7 @@ A multi-purpose calculator for the Roblox game "Aeronautica": plan approaches, e
 
 ## Demo
 
-![Screenshot](https://cdn.discordapp.com/attachments/1349365797515956226/1401934401314754711/ENG-PFC.png?ex=689214a7&is=6890c327&hm=cd9f2b0e1ee53025805b3532ad749f694e213682b0eb125a72856ab135d497d4&)
+![Screenshot](https://cdn.discordapp.com/attachments/1349365797515956225/1401101503217012818/image.png?ex=688f0cf5&is=688dbb75&hm=8f422562c434169b62b4e536a8ffc72e04c05ea90799e179335d311c7f262d72&)
 
 ## Notes
 - "Positive ADI angle" means climb; "Negative ADI angle" means descend.
@@ -50,7 +50,7 @@ MIT License
 
 ## Скриншот
 
-![Скриншот](https://cdn.discordapp.com/attachments/1349365797515956226/1401934401969061888/RU-PFC.png?ex=689214a8&is=6890c328&hm=ed6c8b831d3629398250992b3762e5493f441f357184c9744d36371421e6e75d&)
+![Скриншот](https://cdn.discordapp.com/attachments/1349365797515956225/1401101503217012818/image.png?ex=688f0cf5&is=688dbb75&hm=8f422562c434169b62b4e536a8ffc72e04c05ea90799e179335d311c7f262d72&)
 
 ## Примечания
 - Положительный угол ADI — набор высоты; отрицательный — снижение.
