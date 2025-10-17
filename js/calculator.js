@@ -71,6 +71,7 @@ export const calculate = debounce(function() {
             resultsDiv.classList.add('animate-results');
             return;
         }
+
         const currentAltM = convertToMeters(currentAlt, currentAltUnit);
         const targetAltM = convertToMeters(targetAlt, targetAltUnit);
         const speedMps = convertToMps(speed, speedUnit);
@@ -78,6 +79,7 @@ export const calculate = debounce(function() {
 
         const altDiff = Math.abs(targetAltM - currentAltM);
         const verticalSpeedMps = speedMps * Math.sin(angle * Math.PI / 180);
+
         if (Math.abs(verticalSpeedMps) < 0.001) {
             resultsDiv.innerHTML = `
                 <div class="empty-state">
@@ -89,6 +91,7 @@ export const calculate = debounce(function() {
             resultsDiv.classList.add('animate-results');
             return;
         }
+
         const verticalSpeedFpm = verticalSpeedMps * 196.85;
         const timeMinutes = altDiff / Math.abs(verticalSpeedMps) / 60;
         const horizontalSpeedMps = speedMps * Math.cos(angle * Math.PI / 180);
@@ -99,12 +102,13 @@ export const calculate = debounce(function() {
             const airportDistanceConverted = convertDistanceToKm(airportDistance, airportDistanceUnit);
             const canReachAirport = distanceKm <= airportDistanceConverted;
             airportStatusHtml = `
-                <div class="airport-status ${canReachAirport ? '' : 'danger'}">
+                <div class="airport-status ${canReachAirport ? 'success' : 'danger'}">
                     <span class="status-indicator">${canReachAirport ? '✅' : '❌'}</span>
                     ${canReachAirport ? LANGS[lang].canReach : LANGS[lang].cannotReach}
                 </div>
             `;
         }
+
         const distValue = convertKmToUnit(distanceKm, airportDistanceUnit).toFixed(1);
         const distUnit = airportDistanceUnit;
 

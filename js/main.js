@@ -64,10 +64,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const lang = getLang();
         let name = prompt(LANGS[lang].newProfileName || "Profile name");
         if (!name) return;
+        // Очистка имени для использования в качестве ID
         let baseId = name.toLowerCase().replace(/[^a-zа-яё0-9]+/gi, '-');
         let id = baseId;
         let i = 2;
-        while (profiles[id]) id = baseId + '-' + i++;
+        // Проверка уникальности ID
+        while (profiles[id] && !builtInProfiles.find(p => p.id === id)) id = baseId + '-' + i++;
+        // Проверка, не перезаписываем ли встроенный профиль
+        if (builtInProfiles.find(p => p.id === id)) {
+            alert("A built-in profile already exists with this name.");
+            return;
+        }
         profiles[id] = {
             name: name,
             currentAlt: document.getElementById('currentAlt').value,
@@ -121,21 +128,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const adiSlider = document.getElementById('adiAngle');
     const adiAngleValue = document.getElementById('adiAngleValue');
     adiSlider.addEventListener('input', function() {
+        // Округление значения слайдера
         this.value = Math.round(this.value);
         adiAngleValue.textContent = this.value + ' °';
         saveCurrentProfileData(getCurrentProfileId());
         calculate();
     });
 
-    // Динамический градиент фона
-    document.body.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        const angle = Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI);
-        document.body.style.background = `linear-gradient(${angle + 90}deg, #1e293b 0%, #0d1e3f 70%)`;
-    });
-
+    // Инициализация начального расчёта
     saveCurrentProfileData(getCurrentProfileId());
     calculate();
 });

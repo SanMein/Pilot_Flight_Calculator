@@ -7,7 +7,7 @@
 html, body {
     min-height: 100vh;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: #f1f5f9;
+    color: #e2e8f0;
     overflow-x: hidden;
 }
 body {
@@ -15,7 +15,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 18px;
-    background: linear-gradient(45deg, #1e293b 0%, #0d1e3f 70%);
+    background: linear-gradient(135deg, #0f172a, #1e293b); /* Минималистичный градиент */
     transition: background 0.5s ease;
 }
 
@@ -29,11 +29,11 @@ body {
 }
 .main-card {
     width: 100%;
-    background: rgba(17, 24, 39, 0.72);
-    border-radius: 22px;
-    padding: 26px 24px 20px 24px;
-    box-shadow: 0 8px 30px rgba(30,41,59,0.3);
-    border: 1.5px solid rgba(59,130,246,0.10);
+    background: rgba(15, 23, 42, 0.9); /* Чистый тёмный фон с прозрачностью */
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(96, 165, 250, 0.1); /* Тонкая светлая граница */
     position: relative;
     overflow: hidden;
 }
@@ -42,19 +42,19 @@ body {
 .content {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
-    gap: 28px;
+    gap: 24px;
     align-items: start;
     min-height: 420px;
-    grid-auto-rows: minmax(0, 1fr); /* Синхронизация высоты */
+    grid-auto-rows: minmax(0, 1fr);
 }
 @media (max-width: 1050px) {
     .content { grid-template-columns: 1fr; grid-auto-rows: auto; }
 }
 @media (max-width: 780px) {
-    .main-card { padding: 10px 2vw; }
-    .content { gap: 17px; }
+    .main-card { padding: 16px; }
+    .content { gap: 16px; }
 }
 @media (max-width: 600px) {
-    .main-card { padding: 16px 12px; }
-    .content { gap: 10px; }
+    .main-card { padding: 12px; }
+    .content { gap: 12px; }
 }

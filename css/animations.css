@@ -1,13 +1,13 @@
 /* Анимация для результатов расчёта */
 .animate-results {
-    animation: fadeInUp 0.5s ease-in-out forwards;
+    animation: fadeInUp 0.4s ease-out forwards;
     will-change: opacity, transform;
 }
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px);
     }
     to {
         opacity: 1;
@@ -17,15 +17,15 @@
 
 /* Анимация для result-card */
 .result-card {
-    animation: slideIn 0.5s ease-in-out forwards;
-    animation-delay: calc(var(--order) * 0.1s);
+    animation: slideIn 0.4s ease-out forwards;
+    animation-delay: calc(var(--order) * 0.08s);
     will-change: opacity, transform;
 }
 
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateX(-20px);
+        transform: translateX(-15px);
     }
     to {
         opacity: 1;
@@ -35,14 +35,14 @@
 
 /* Анимация для airport-status */
 .airport-status {
-    animation: popIn 0.5s ease-in-out forwards;
+    animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     will-change: opacity, transform;
 }
 
 @keyframes popIn {
     from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: scale(0.95);
     }
     to {
         opacity: 1;
