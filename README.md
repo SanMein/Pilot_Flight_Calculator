@@ -1,3 +1,5 @@
+# Pilot Flight Calculator
+
 A multi-purpose flight calculation tool for pilots, flight simulation users, and aviation enthusiasts. Version 28 introduces a refined interface and improved performance.
 
 ## Key Features
@@ -30,7 +32,7 @@ A multi-purpose flight calculation tool for pilots, flight simulation users, and
 
 ## Demo
 
-![Screenshot](https://ibb.co/tTJrW3ds)
+![Screenshot](https://i.ibb.co/svfvw7hS/Eng-v.png)
 
 ## Notes
 - **Positive ADI Angle:** Indicates climb.
@@ -80,7 +82,7 @@ MIT License
 
 ## Скриншот
 
-![Скриншот](https://ibb.co/TdrZ5zM)
+![Скриншот](https://i.ibb.co/W46QfmLh/Rus-v.png)
 
 ## Примечания
 - **Положительный угол ADI:** Набор высоты.
@@ -130,7 +132,7 @@ Herramienta multifunción de cálculo para pilotos, usuarios de simuladores de v
 
 ## Demo
 
-![Captura de Pantalla](https://ibb.co/DHz9n9Lk)
+![Captura de Pantalla](https://i.ibb.co/d4FXQVJb/Esp-v.png)
 
 ## Notas
 - **Ángulo ADI Positivo:** Indica ascenso.
@@ -180,7 +182,7 @@ Ein vielseitiges Berechnungstool für Piloten, Nutzer von Flugsimulatoren und Lu
 
 ## Screenshot
 
-![Screenshot](https://ibb.co/DHz9n9Lk)
+![Screenshot](https://i.ibb.co/yBNCVRpB/Deu-v.png)
 
 ## Hinweise
 - **Positiver ADI-Winkel:** Bedeutet Steigflug.
