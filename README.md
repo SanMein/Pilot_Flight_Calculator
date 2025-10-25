@@ -11,18 +11,6 @@ A multi-purpose flight calculation tool for pilots, flight simulation users, and
 - **Modern Interface:** Minimalistic, responsive UI with smooth animations and instant calculations.
 - **Offline Access:** Fully functional without installation — runs directly in your browser.
 
-## What's New in Version 28
-### Visual & UI Enhancements
-- **Refined Color Palette:** A cleaner, more professional look with harmonious backgrounds and text colors.
-- **Simplified Design:** Unnecessary visual elements removed for a focused interface.
-- **Improved Typography:** Adjusted font sizes and weights for better readability.
-- **Subtle Animations:** Optimized durations and easing for smoother transitions.
-- **Updated Components:** Enhanced input fields, buttons, and result cards for consistency and modern style.
-
-### Code & Performance Updates
-- **Dynamic Background Removed:** For improved performance and alignment with the new minimalist aesthetic.
-- **Code Cleanup:** Better maintainability through structural and formatting improvements across HTML, CSS, and JavaScript.
-
 ## How to Use
 1. Enter the current and target altitudes.
 2. Specify your speed and desired ADI angle.
@@ -60,18 +48,6 @@ MIT License
 - **Мультиязычность:** Доступно на английском, русском, испанском и немецком языках.
 - **Современный интерфейс:** Минималистичный, адаптивный UI с плавными анимациями и мгновенными расчётами.
 - **Работа оффлайн:** Полнофункционально без установки — работает прямо в браузере.
-
-## Что нового в версии 28
-### Визуальные и UI улучшения
-- **Уточнённая цветовая палитра:** Более чистый и профессиональный вид с гармоничными фонами и цветами текста.
-- **Упрощённый дизайн:** Удалены лишние визуальные элементы для акцентированного интерфейса.
-- **Улучшенная типографика:** Настроены размеры и веса шрифтов для лучшей читаемости.
-- **Тонкие анимации:** Оптимизирована продолжительность и плавность переходов.
-- **Обновлённые компоненты:** Улучшены поля ввода, кнопки и карточки результатов.
-
-### Обновления кода и производительности
-- **Удалён динамический фон:** Для повышения производительности и соответствия новому минималистичному стилю.
-- **Очистка кода:** Улучшено форматирование и структура HTML, CSS и JavaScript для удобства сопровождения.
 
 ## Как пользоваться
 1. Введите текущую и целевую высоту.
@@ -111,18 +87,6 @@ Herramienta multifunción de cálculo para pilotos, usuarios de simuladores de v
 - **Interfaz Moderna:** UI minimalista, adaptable con animaciones fluidas y cálculos instantáneos.
 - **Acceso sin Conexión:** Totalmente funcional sin instalación — funciona directamente en tu navegador.
 
-## Novedades en la Versión 28
-### Mejoras Visuales y de Interfaz
-- **Paleta de Colores Refinada:** Un aspecto más limpio y profesional con fondos y colores de texto armoniosos.
-- **Diseño Simplificado:** Elementos visuales innecesarios eliminados para una interfaz más enfocada.
-- **Tipografía Mejorada:** Tamaños y pesos de fuente ajustados para mejor legibilidad.
-- **Animaciones Sutiles:** Duraciones y transiciones optimizadas para una experiencia más fluida.
-- **Componentes Actualizados:** Campos de entrada, botones y tarjetas de resultados mejorados para mayor consistencia y estilo moderno.
-
-### Actualizaciones de Código y Rendimiento
-- **Fondo Dinámico Eliminado:** Para un mejor rendimiento y alineación con la nueva estética minimalista.
-- **Limpieza de Código:** Mejor mantenibilidad a través de mejoras estructurales y de formato en HTML, CSS y JavaScript.
-
 ## Cómo Usar
 1. Introduce las altitudes actual y objetivo.
 2. Especifica tu velocidad y el ángulo ADI deseado.
@@ -160,18 +124,6 @@ Ein vielseitiges Berechnungstool für Piloten, Nutzer von Flugsimulatoren und Lu
 - **Mehrsprachige Unterstützung:** Verfügbar in Englisch, Russisch, Spanisch und Deutsch.
 - **Moderne Benutzeroberfläche:** Minimalistisches, reaktionsschnelles UI mit flüssigen Animationen und sofortigen Berechnungen.
 - **Offline-Zugriff:** Vollständig funktionsfähig ohne Installation — läuft direkt im Browser.
-
-## Neuheiten in Version 28
-### Visuelle und UI-Verbesserungen
-- **Verfeinerte Farbpalette:** Ein saubereres, professionelleres Erscheinungsbild mit harmonischen Hintergründen und Textfarben.
-- **Vereinfachtes Design:** Unnötige visuelle Elemente wurden entfernt, um eine fokussierte Benutzeroberfläche zu schaffen.
-- **Verbesserte Typografie:** Angepasste Schriftgrößen und -gewichte für bessere Lesbarkeit.
-- **Feine Animationen:** Optimierte Dauer und Übergänge für ein reibungsloseres Erlebnis.
-- **Aktualisierte Komponenten:** Verbesserte Eingabefelder, Schaltflächen und Ergebniskarten für mehr Konsistenz und modernen Stil.
-
-### Code- und Leistungsaktualisierungen
-- **Dynamischer Hintergrund Entfernt:** Für eine bessere Leistung und Anpassung an die neue minimalistische Ästhetik.
-- **Code-Bereinigung:** Verbesserte Wartbarkeit durch strukturelle und formatbezogene Verbesserungen in HTML, CSS und JavaScript.
 
 ## Anwendung
 1. Gib die aktuelle und die Zielhöhe ein.
