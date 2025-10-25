@@ -1,4 +1,4 @@
-# Pilot Flight Calculator
+<img width="1907" height="1114" alt="image" src="https://github.com/user-attachments/assets/174ea286-f07f-42ac-b71b-e2be574d3e9a" /><img width="1907" height="1114" alt="image" src="https://github.com/user-attachments/assets/f76f73a8-866e-4f62-9c08-2c8e9fdf47ac" /># Pilot Flight Calculator
 
 A multi-purpose flight calculation tool for pilots, flight simulation users, and aviation enthusiasts. Version 28 introduces a refined interface and improved performance.
 
@@ -32,7 +32,7 @@ A multi-purpose flight calculation tool for pilots, flight simulation users, and
 
 ## Demo
 
-![Screenshot](https://media.discordapp.net/attachments/1406640182337339483/1428548192756043858/Eng.png?ex=68f2e6ae&is=68f1952e&hm=3b5b06cc3b27d81869a4b0c70450dd67949340be9f5975cba95124ea25af7046&=&format=webp&quality=lossless&width=1749&height=842)
+![Screenshot](https://ibb.co/tTJrW3ds)
 
 ## Notes
 - **Positive ADI Angle:** Indicates climb.
@@ -82,7 +82,7 @@ MIT License
 
 ## Скриншот
 
-![Скриншот](https://media.discordapp.net/attachments/1406640182337339483/1428548193150439495/Rus.png?ex=68f2e6ae&is=68f1952e&hm=21e150a3167dd4bafd0a8b22e19530c0cfd5e9bb18a77b5e603bc49c343db25b&=&format=webp&quality=lossless&width=1749&height=842)
+![Скриншот](https://ibb.co/TdrZ5zM)
 
 ## Примечания
 - **Положительный угол ADI:** Набор высоты.
@@ -132,7 +132,7 @@ Herramienta multifunción de cálculo para pilotos, usuarios de simuladores de v
 
 ## Demo
 
-![Captura de Pantalla](https://media.discordapp.net/attachments/1406640182337339483/1428548796031303783/image.png?ex=68f2e73e&is=68f195be&hm=d70e2d750822f27f127ea4bce0369839ae3992e564d4e011f02fea978d2efee9&=&format=webp&quality=lossless&width=1832&height=881)
+![Captura de Pantalla](https://ibb.co/DHz9n9Lk)
 
 ## Notas
 - **Ángulo ADI Positivo:** Indica ascenso.
@@ -182,7 +182,7 @@ Ein vielseitiges Berechnungstool für Piloten, Nutzer von Flugsimulatoren und Lu
 
 ## Screenshot
 
-![Screenshot](https://cdn.discordapp.com/attachments/1406640182337339483/1428549079125983313/image.png?ex=68f2e781&is=68f19601&hm=8c1ff6186067980b6abf511b47c12e9f7e719d73857f2ab1c01a6231b4e01915&)
+![Screenshot](https://ibb.co/DHz9n9Lk)
 
 ## Hinweise
 - **Positiver ADI-Winkel:** Bedeutet Steigflug.
