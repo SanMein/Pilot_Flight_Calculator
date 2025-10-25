@@ -158,28 +158,62 @@ export function getLang() {
 }
 
 export function setLang(lang) {
+    if (!LANGS[lang]) lang = 'en';
+
     document.documentElement.lang = lang;
     document.body.lang = lang;
-    document.getElementById('title-main').innerText = LANGS[lang].title;
-    document.getElementById('desc-main').innerText = LANGS[lang].desc;
-    document.getElementById('section-flight-params').innerText = LANGS[lang].sectionFlightParams;
-    document.getElementById('section-results-title').innerText = LANGS[lang].sectionResults;
-    document.getElementById('lbl-current-alt').innerText = LANGS[lang].currentAlt;
-    document.getElementById('lbl-target-alt').innerText = LANGS[lang].targetAlt;
-    document.getElementById('lbl-speed').innerText = LANGS[lang].speed;
-    document.getElementById('lbl-adi').innerText = LANGS[lang].adi;
-    document.getElementById('lbl-dist').innerText = LANGS[lang].distance;
-    document.getElementById('notes-header').innerText = LANGS[lang].notes;
-    document.getElementById('note-1').innerText = LANGS[lang].note1;
-    document.getElementById('note-2').innerText = LANGS[lang].note2;
-    document.getElementById('note-3').innerText = LANGS[lang].note3;
-    document.getElementById('note-4').innerText = LANGS[lang].note4;
-    document.getElementById('note-5').innerText = LANGS[lang].note5;
-    document.getElementById('modalHeader').innerText = LANGS[lang].settings;
-    document.querySelector('label[for="langSelect"]').innerText = LANGS[lang].langLabel;
-    document.getElementById('currentAlt').placeholder = LANGS[lang].enterAlt;
-    document.getElementById('targetAlt').placeholder = LANGS[lang].enterAlt;
-    document.getElementById('speed').placeholder = LANGS[lang].enterSpeed;
-    document.getElementById('airportDistance').placeholder = LANGS[lang].enterDist;
+
+    // Update all translatable elements
+    const elements = {
+        'title-main': 'title',
+        'desc-main': 'desc',
+        'section-flight-params': 'sectionFlightParams',
+        'section-results-title': 'sectionResults',
+        'lbl-current-alt': 'currentAlt',
+        'lbl-target-alt': 'targetAlt',
+        'lbl-speed': 'speed',
+        'lbl-adi': 'adi',
+        'lbl-dist': 'distance',
+        'notes-header': 'notes',
+        'note-1': 'note1',
+        'note-2': 'note2',
+        'note-3': 'note3',
+        'note-4': 'note4',
+        'note-5': 'note5',
+        'modalHeader': 'settings'
+    };
+
+    Object.entries(elements).forEach(([elementId, translationKey]) => {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.textContent = LANGS[lang][translationKey];
+        }
+    });
+
+    // Update placeholders
+    const placeholders = {
+        'currentAlt': 'enterAlt',
+        'targetAlt': 'enterAlt',
+        'speed': 'enterSpeed',
+        'airportDistance': 'enterDist'
+    };
+
+    Object.entries(placeholders).forEach(([elementId, translationKey]) => {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.placeholder = LANGS[lang][translationKey];
+        }
+    });
+
+    // Update language label
+    const langLabel = document.querySelector('label[for="langSelect"]');
+    if (langLabel) {
+        langLabel.textContent = LANGS[lang].langLabel;
+    }
+
+    // Save language preference
     localStorage.setItem('pilot_lang', lang);
+
+    // Dispatch event for other components to update
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: lang }));
 }

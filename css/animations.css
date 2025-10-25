@@ -1,13 +1,12 @@
 /* Анимация для результатов расчёта */
 .animate-results {
-    animation: fadeInUp 0.4s ease-out forwards;
-    will-change: opacity, transform;
+    animation: fadeInUp 0.5s ease-out forwards;
 }
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -17,15 +16,15 @@
 
 /* Анимация для result-card */
 .result-card {
-    animation: slideIn 0.4s ease-out forwards;
-    animation-delay: calc(var(--order) * 0.08s);
-    will-change: opacity, transform;
+    animation: slideInRight 0.5s ease-out forwards;
+    animation-delay: calc(var(--order, 0) * 0.1s);
+    opacity: 0;
 }
 
-@keyframes slideIn {
+@keyframes slideInRight {
     from {
         opacity: 0;
-        transform: translateX(-15px);
+        transform: translateX(-30px);
     }
     to {
         opacity: 1;
@@ -35,17 +34,98 @@
 
 /* Анимация для airport-status */
 .airport-status {
-    animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    will-change: opacity, transform;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 @keyframes popIn {
     from {
         opacity: 0;
-        transform: scale(0.95);
+        transform: scale(0.8);
     }
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+/* Анимация для появления элементов */
+.input-group {
+    animation: fadeIn 0.6s ease-out forwards;
+    animation-delay: calc(var(--order, 0) * 0.05s);
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Анимация для модального окна */
+.modal {
+    animation: modalSlideIn 0.3s ease-out forwards;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.modal-bg {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Анимация для кнопок */
+.settings-btn, .add-profile-btn, .profile-delete-btn {
+    animation: bounceIn 0.6s ease-out forwards;
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Анимация для карточек при hover */
+.input-section, .results-section, .result-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Плавное появление всего контента */
+.main-card {
+    animation: cardAppear 0.8s ease-out forwards;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }

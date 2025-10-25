@@ -12,14 +12,27 @@
 <body>
     <div class="container">
         <div class="main-card">
-            <button id="settingsBtn" class="settings-btn" title="Settings">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94a7.07 7.07 0 0 0 .15-1.44 7.07 7.07 0 0 0-.15-1.44l-2.24-.55a4.61 4.61 0 0 0-.52-1.3l1.36-1.88a7.06 7.06 0 0 0-1-1.73l-2.07 1.06a4.58 4.58 0 0 0-1.3-.52l-.55-2.24a7.07  7.07 0 0 0-1.44-.15 7.07 7.07 0 0 0-1.44.15l-.55 2.24a4.58 4.58 0 0 0-1.3.52l-2.07-1.06a7.06 7.06 0 0 0-1 1.73l1.36 1.88a4.61 4.61 0 0 0-.52 1.3l-2.24.55a7.07 7.07 0 0 0-.15 1.44  7.07 7.07 0 0 0 .15 1.44l2.24.55a4.61 4.61 0 0 0 .52 1.3l-1.36 1.88a7.06 7.06 0 0 0 1 1.73l2.07-1.06a4.58 4.58 0 0 0 1.3.52l.55 2.24a7.07 7.07 0 0 0 1.44.15 7.07 7.07 0 0 0 1.44-.1 5l.55-2.24a4.58 4.58 0 0 0 1.3-.52l2.07 1.06a7.06 7.06 0 0 0 1-1.73l-1.36-1.88a4.61 4.61 0 0 0 .52-1.3l2.24-.55zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg>
-            </button>
-            <div id="modalBg" class="modal-bg">
-                <div id="settingsModal" class="modal">
-                    <button id="modalCloseBtn" class="modal-close">×</button>
-                    <div id="modalHeader" class="modal-header">Settings</div>
-                    <label for="langSelect">Language / Язык / Idioma / Sprache</label>
+            <!-- Header -->
+            <div class="header">
+                <div class="header-icon">
+                    <img src="assets/logo.png" alt="Logo" class="logo-img" style="width: 32px; height: 32px;">
+                </div>
+                <div class="header-content">
+                    <h1 id="title-main">Pilot Flight Calculator</h1>
+                    <p id="desc-main">Flight parameters calculation tool</p>
+                </div>
+                <button id="settingsBtn" class="settings-btn" title="Settings">
+                    <img src="assets/ul.png" alt="Settings" class="btn-icon" style="width: 32px; height: 32px;">
+                </button>
+            </div>
+
+            <!-- Settings Modal -->
+            <div id="modalBg" class="modal-bg"></div>
+            <div id="settingsModal" class="modal">
+                <button id="modalCloseBtn" class="modal-close">×</button>
+                <div id="modalHeader" class="modal-header">Settings</div>
+                <div class="modal-content">
+                    <label for="langSelect" class="modal-label">Language / Язык / Idioma / Sprache</label>
                     <select id="langSelect" class="lang-select">
                         <option value="en">English</option>
                         <option value="ru">Русский</option>
@@ -28,17 +41,12 @@
                     </select>
                 </div>
             </div>
-            <div class="header">
-                <div class="header-icon">
-                    <img src="assets/logo.png" alt="Logo" style="width: 32px; height: 32px;">
-                </div>
-                <div class="header-content">
-                    <h1 id="title-main">Pilot Flight Calculator</h1>
-                    <p id="desc-main">Flight parameters calculation tool</p>
-                </div>
-            </div>
+
+            <!-- Main Content -->
             <div class="content">
+                <!-- Input Section -->
                 <div class="input-section">
+                    <!-- Profiles -->
                     <div class="profiles-row">
                         <select id="profileSelect" class="profile-select">
                             <option value="custom">Custom</option>
@@ -47,15 +55,22 @@
                             <option value="climb-out">Climb Out</option>
                         </select>
                         <div class="profile-actions">
-                            <button id="addProfileBtn" class="add-profile-btn" title="Add profile">+</button>
-                            <button id="deleteProfileBtn" class="profile-delete-btn" title="Delete profile">🗑️</button>
+                            <button id="addProfileBtn" class="add-profile-btn" title="Add profile">
+                                <img src="assets/plus.png" alt="Add" class="btn-icon-sm" style="width: 32px; height: 32px;">
+                            </button>
+                            <button id="deleteProfileBtn" class="profile-delete-btn" title="Delete profile">
+                                <img src="assets/minus.png" alt="Delete" class="btn-icon-sm" style="width: 32px; height: 32px;">
+                            </button>
                         </div>
                     </div>
-                    <div class="section-title" id="section-flight-params">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-12h2v4h4v2h-4v4h-2v-4H7v-2h4V8z"/></svg>
-                        Flight Parameters
+
+                    <!-- Section Title -->
+                    <div class="section-title">
+                        <span id="section-flight-params">Flight Parameters</span>
                     </div>
-                    <div class="input-group" style="--order: 1;">
+
+                    <!-- Input Fields -->
+                    <div class="input-group">
                         <label id="lbl-current-alt" class="input-label" for="currentAlt">Current Altitude</label>
                         <div class="input-row">
                             <input id="currentAlt" class="input-field" type="number" min="0" placeholder="Enter altitude">
@@ -65,7 +80,8 @@
                             </select>
                         </div>
                     </div>
-                    <div class="input-group" style="--order: 2;">
+
+                    <div class="input-group">
                         <label id="lbl-target-alt" class="input-label" for="targetAlt">Target Altitude</label>
                         <div class="input-row">
                             <input id="targetAlt" class="input-field" type="number" min="0" placeholder="Enter altitude">
@@ -75,7 +91,8 @@
                             </select>
                         </div>
                     </div>
-                    <div class="input-group" style="--order: 3;">
+
+                    <div class="input-group">
                         <label id="lbl-speed" class="input-label" for="speed">Speed</label>
                         <div class="input-row">
                             <input id="speed" class="input-field" type="number" min="0" placeholder="Enter speed">
@@ -87,14 +104,16 @@
                             </select>
                         </div>
                     </div>
-                    <div class="input-group" style="--order: 4;">
+
+                    <div class="input-group">
                         <label id="lbl-adi" class="input-label" for="adiAngle">ADI Angle (-15° to +15°)</label>
                         <div class="adi-slider-container">
-                            <div id="adiAngleValue" class="adi-slider-value">0 °</div>
                             <input id="adiAngle" class="adi-slider" type="range" min="-15" max="15" value="0">
+                            <div id="adiAngleValue" class="adi-slider-value">0 °</div>
                         </div>
                     </div>
-                    <div class="input-group" style="--order: 5;">
+
+                    <div class="input-group">
                         <label id="lbl-dist" class="input-label" for="airportDistance">Distance to Airport</label>
                         <div class="input-row">
                             <input id="airportDistance" class="input-field" type="number" min="0" placeholder="Enter distance">
@@ -106,18 +125,22 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Results Section -->
                 <div class="results-section">
-                    <div class="section-title" id="section-results-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm-1-12h2v4h4v2h-4v4h-2v-4H7v-2h4V8z"/></svg>
-                        Calculation Results
+                    <div class="section-title">
+                        <span id="section-results-title">Calculation Results</span>
                     </div>
+
                     <div id="results" class="results">
                         <div class="empty-state">
-                            <div class="icon">📊</div>
-                            <div class="text" id="fill-fields-text">Fill in all fields</div>
-                            <div class="subtext">Calculation is performed automatically</div>
+                            <div class="empty-icon">📊</div>
+                            <div class="empty-text" id="fill-fields-text">Fill in all fields</div>
+                            <div class="empty-subtext">Calculation is performed automatically</div>
                         </div>
                     </div>
+
+                    <!-- Notes -->
                     <div class="notes styled-notes">
                         <h4 id="notes-header">Notes:</h4>
                         <ul>

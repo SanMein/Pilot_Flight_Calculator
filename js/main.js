@@ -3,115 +3,217 @@ import { profiles, builtInProfiles, getProfileLabel, loadProfiles, saveUserProfi
 import { calculate } from './calculator.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize elements
     const settingsBtn = document.getElementById('settingsBtn');
     const modalBg = document.getElementById('modalBg');
     const modal = document.getElementById('settingsModal');
     const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const langSelect = document.getElementById('langSelect');
     const deleteProfileBtn = document.getElementById('deleteProfileBtn');
+    const addProfileBtn = document.getElementById('addProfileBtn');
+    const profileSelect = document.getElementById('profileSelect');
 
-    // Проверка существования элементов
+    // Check if elements exist
     if (!settingsBtn || !modalBg || !modal || !modalCloseBtn) {
-        console.error('One or more DOM elements not found');
+        console.error('Required DOM elements not found');
         return;
     }
 
-    // Открытие модального окна
-    settingsBtn.onclick = () => {
-        modalBg.classList.add('active');
-        modal.classList.add('active');
-    };
+    console.log('All modal elements found');
 
-    // Закрытие модального окна только при клике на фон
-    modalBg.onclick = (e) => {
-        if (e.target === modalBg) {
-            modalBg.classList.remove('active');
-            modal.classList.remove('active');
+    // Простая и надежная логика модального окна
+    function openModal() {
+        console.log('Opening modal');
+        modalBg.style.display = 'block';
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Блокируем скролл
+    }
+
+    function closeModal() {
+        console.log('Closing modal');
+        modalBg.style.display = 'none';
+        modal.style.display = 'none';
+        document.body.style.overflow = ''; // Восстанавливаем скролл
+    }
+
+    // Event listeners
+    settingsBtn.addEventListener('click', openModal);
+    modalCloseBtn.addEventListener('click', closeModal);
+    modalBg.addEventListener('click', closeModal);
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display === 'block') {
+            closeModal();
         }
-    };
+    });
 
-    // Закрытие по кнопке
-    modalCloseBtn.onclick = () => {
-        modalBg.classList.remove('active');
-        modal.classList.remove('active');
-    };
+    // Prevent modal close when clicking on modal content
+    modal.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
 
-    // Изменение языка
-    document.getElementById('langSelect').onchange = (e) => {
-        localStorage.setItem('pilot_lang', e.target.value);
-        setLang(e.target.value);
-    };
+    // Language selection
+    const currentLang = getLang();
+    langSelect.value = currentLang;
 
-    loadProfiles();
-    fillProfileOptions();
-    setFieldsFromProfile(window.lastProfileId || 'custom');
-    setLang(getLang());
+    langSelect.addEventListener('change', (e) => {
+        const newLang = e.target.value;
+        setLang(newLang);
+        updateUI();
+    });
 
-    // Обработчик выбора профиля с управлением видимостью кнопки удаления
-    document.getElementById('profileSelect').onchange = function() {
-        saveCurrentProfileData(window.lastProfileId || 'custom');
-        setFieldsFromProfile(this.value);
+    // Initialize application
+    function initializeApp() {
+        console.log('Initializing application...');
+        loadProfiles();
         fillProfileOptions();
-        window.lastProfileId = this.value;
-        calculate();
-        // Скрываем кнопку удаления для "Custom", показываем для остальных
-        deleteProfileBtn.style.display = this.value === 'custom' ? 'none' : 'inline-flex';
-    };
-    window.lastProfileId = getCurrentProfileId();
-    // Инициализация видимости кнопки
-    deleteProfileBtn.style.display = getCurrentProfileId() === 'custom' ? 'none' : 'inline-flex';
+        setLang(getLang());
+        updateUI();
 
-    document.getElementById('addProfileBtn').onclick = function() {
-        const lang = getLang();
-        let name = prompt(LANGS[lang].newProfileName || "Profile name");
-        if (!name) return;
-        // Очистка имени для использования в качестве ID
-        let baseId = name.toLowerCase().replace(/[^a-zа-яё0-9]+/gi, '-');
-        let id = baseId;
-        let i = 2;
-        // Проверка уникальности ID
-        while (profiles[id] && !builtInProfiles.find(p => p.id === id)) id = baseId + '-' + i++;
-        // Проверка, не перезаписываем ли встроенный профиль
-        if (builtInProfiles.find(p => p.id === id)) {
-            alert("A built-in profile already exists with this name.");
-            return;
+        // Set initial profile
+        const initialProfileId = window.lastProfileId || 'custom';
+        setFieldsFromProfile(initialProfileId);
+        if (profileSelect) {
+            profileSelect.value = initialProfileId;
         }
-        profiles[id] = {
-            name: name,
-            currentAlt: document.getElementById('currentAlt').value,
-            targetAlt: document.getElementById('targetAlt').value,
-            speed: document.getElementById('speed').value,
-            adiAngle: parseInt(document.getElementById('adiAngle').value, 10),
-            airportDistance: document.getElementById('airportDistance').value,
-            currentAltUnit: document.getElementById('currentAltUnit').value,
-            targetAltUnit: document.getElementById('targetAltUnit').value,
-            speedUnit: document.getElementById('speedUnit').value,
-            airportDistanceUnit: document.getElementById('airportDistanceUnit').value
-        };
-        saveUserProfiles();
-        fillProfileOptions();
-        document.getElementById('profileSelect').value = id;
-        window.lastProfileId = id;
-        calculate();
-        deleteProfileBtn.style.display = id === 'custom' ? 'none' : 'inline-flex';
-    };
 
-    document.getElementById('deleteProfileBtn').onclick = function() {
-        const id = getCurrentProfileId();
-        if (!profiles[id] || builtInProfiles.find(p => p.id === id)) return;
-        const lang = getLang();
-        if (!confirm(`${LANGS[lang].deleteProfile}?`)) return;
-        delete profiles[id];
-        saveUserProfiles();
-        fillProfileOptions();
-        document.getElementById('profileSelect').value = 'custom';
-        setFieldsFromProfile('custom');
-        window.lastProfileId = 'custom';
-        calculate();
-        deleteProfileBtn.style.display = 'none';
-    };
+        // Update delete button visibility
+        updateDeleteButtonVisibility();
 
-    const inputs = ['currentAlt', 'targetAlt', 'currentAltUnit', 'targetAltUnit', 'speed', 'speedUnit', 'adiAngle', 'airportDistance', 'airportDistanceUnit'];
-    inputs.forEach(id => {
+        // Initial calculation
+        calculate();
+
+        console.log('Application initialized successfully');
+    }
+
+    function updateUI() {
+        // Update profile options with current language
+        fillProfileOptions();
+        updateDeleteButtonVisibility();
+    }
+
+    function updateDeleteButtonVisibility() {
+        if (!deleteProfileBtn) return;
+
+        const currentProfileId = getCurrentProfileId();
+        const isCustomProfile = currentProfileId === 'custom';
+        const isBuiltInProfile = builtInProfiles.find(p => p.id === currentProfileId);
+
+        deleteProfileBtn.style.display = (isCustomProfile || isBuiltInProfile) ? 'none' : 'block';
+    }
+
+    // Profile selection
+    if (profileSelect) {
+        profileSelect.addEventListener('change', function() {
+            const previousProfileId = window.lastProfileId || 'custom';
+            const newProfileId = this.value;
+
+            // Save current data to previous profile
+            saveCurrentProfileData(previousProfileId);
+
+            // Load new profile
+            setFieldsFromProfile(newProfileId);
+            window.lastProfileId = newProfileId;
+            localStorage.setItem('pilot_last_profile', newProfileId);
+
+            // Update UI
+            updateDeleteButtonVisibility();
+            calculate();
+        });
+    }
+
+    // Add profile
+    if (addProfileBtn) {
+        addProfileBtn.addEventListener('click', function() {
+            const lang = getLang();
+            let name = prompt(LANGS[lang].newProfileName || "Profile name");
+
+            if (!name || name.trim() === '') return;
+
+            name = name.trim();
+
+            // Generate ID from name
+            let baseId = name.toLowerCase()
+                .replace(/[^a-zа-яё0-9]/gi, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+
+            let id = baseId;
+            let i = 2;
+
+            // Ensure unique ID
+            while (profiles[id] && !builtInProfiles.find(p => p.id === id)) {
+                id = `${baseId}-${i++}`;
+            }
+
+            // Check if trying to overwrite built-in profile
+            if (builtInProfiles.find(p => p.id === id)) {
+                alert("A built-in profile already exists with this name.");
+                return;
+            }
+
+            // Create new profile
+            profiles[id] = {
+                name: name,
+                currentAlt: document.getElementById('currentAlt')?.value || '',
+                targetAlt: document.getElementById('targetAlt')?.value || '',
+                speed: document.getElementById('speed')?.value || '',
+                adiAngle: parseInt(document.getElementById('adiAngle')?.value || 0, 10),
+                airportDistance: document.getElementById('airportDistance')?.value || '',
+                currentAltUnit: document.getElementById('currentAltUnit')?.value || 'ft',
+                targetAltUnit: document.getElementById('targetAltUnit')?.value || 'ft',
+                speedUnit: document.getElementById('speedUnit')?.value || 'kts',
+                airportDistanceUnit: document.getElementById('airportDistanceUnit')?.value || 'nmi'
+            };
+
+            saveUserProfiles();
+            fillProfileOptions();
+            if (profileSelect) {
+                profileSelect.value = id;
+            }
+            window.lastProfileId = id;
+            localStorage.setItem('pilot_last_profile', id);
+
+            updateDeleteButtonVisibility();
+            calculate();
+        });
+    }
+
+    // Delete profile
+    if (deleteProfileBtn) {
+        deleteProfileBtn.addEventListener('click', function() {
+            const id = getCurrentProfileId();
+
+            if (!profiles[id] || builtInProfiles.find(p => p.id === id)) return;
+
+            const lang = getLang();
+            if (!confirm(`${LANGS[lang].deleteProfile} "${profiles[id].name}"?`)) return;
+
+            delete profiles[id];
+            saveUserProfiles();
+            fillProfileOptions();
+
+            // Switch to custom profile
+            if (profileSelect) {
+                profileSelect.value = 'custom';
+            }
+            setFieldsFromProfile('custom');
+            window.lastProfileId = 'custom';
+            localStorage.setItem('pilot_last_profile', 'custom');
+
+            updateDeleteButtonVisibility();
+            calculate();
+        });
+    }
+
+    // Input event listeners
+    const inputElements = [
+        'currentAlt', 'targetAlt', 'speed', 'airportDistance',
+        'currentAltUnit', 'targetAltUnit', 'speedUnit', 'airportDistanceUnit'
+    ];
+
+    inputElements.forEach(id => {
         const element = document.getElementById(id);
         if (element) {
             element.addEventListener('input', () => {
@@ -125,17 +227,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ADI Slider
     const adiSlider = document.getElementById('adiAngle');
     const adiAngleValue = document.getElementById('adiAngleValue');
-    adiSlider.addEventListener('input', function() {
-        // Округление значения слайдера
-        this.value = Math.round(this.value);
-        adiAngleValue.textContent = this.value + ' °';
-        saveCurrentProfileData(getCurrentProfileId());
-        calculate();
-    });
 
-    // Инициализация начального расчёта
-    saveCurrentProfileData(getCurrentProfileId());
-    calculate();
+    if (adiSlider && adiAngleValue) {
+        adiSlider.addEventListener('input', function() {
+            const value = Math.round(parseFloat(this.value));
+            this.value = value;
+            adiAngleValue.textContent = value + ' °';
+            saveCurrentProfileData(getCurrentProfileId());
+            calculate();
+        });
+    }
+
+    // Initialize the application
+    initializeApp();
 });
