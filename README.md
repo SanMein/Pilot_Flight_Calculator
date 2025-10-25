@@ -1,5 +1,3 @@
-<img width="1907" height="1114" alt="image" src="https://github.com/user-attachments/assets/174ea286-f07f-42ac-b71b-e2be574d3e9a" /><img width="1907" height="1114" alt="image" src="https://github.com/user-attachments/assets/f76f73a8-866e-4f62-9c08-2c8e9fdf47ac" /># Pilot Flight Calculator
-
 A multi-purpose flight calculation tool for pilots, flight simulation users, and aviation enthusiasts. Version 28 introduces a refined interface and improved performance.
 
 ## Key Features
